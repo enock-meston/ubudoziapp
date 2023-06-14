@@ -13,30 +13,42 @@ class HejuruController extends GetxController {
   var isLoading = true.obs;
 
   var user = UserProfileModel().obs;
-  List<HejuruModel> hejuruDataList = <HejuruModel>[].obs;
+  RxList<HejuruModel> hejuruDataList = <HejuruModel>[].obs;
 
  @override
   void onInit() {
     super.onInit();
-
     getHejuruData();
   }
 
 
-  Future<void> getHejuruData() async {
+   getHejuruData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? userId = sharedPreferences.getString("userId");
+    print ("user id nii : $userId");
     var url = Uri.parse("${API.getHejuruData}?userId=$userId");
-    var response = await http.get(Uri.parse("${API.getHejuruData}?userId=$userId"));
+    // print("url ni : $url");
+    var response = await http.get(url);
     // print(url);
-    print("data zo hejuru: ${response.body}");
+    // print("data zo hejuru: ${response.body}");
 
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
+       var data = jsonDecode(response.body);
+    
+      
+     ///run
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
-        hejuruDataList.add(HejuruModel.fromJson(data));
+        hejuruDataList.value =  hejuruModelsFromJson(jsonEncode(data["data"]));
+        hejuruDataList.refresh();
+        print(hejuruDataList.length);
+        
        
+       print("data zo hejuru tugendeye ku mu user ni : ${response.body}");
+
+      //   List data1 = json.decode(response.body);
+      // return data1.map((job) => new HejuruModel.fromJson(job)).toList();
+
         isLoading(false);
 
       } else {

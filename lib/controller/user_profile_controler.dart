@@ -28,18 +28,18 @@ var user = UserProfileModel().obs;
       String? userId = sharedPreferences.getString("userId");
 
       var response = await http.get(Uri.parse("${API.getMyProfile}?userId=$userId"));
-      print("response.body: ${response.body}");
+      // print("response.body: ${response.body}");
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         if (response.statusCode == 200) {
       var data = json.decode(response.body);
       // print("getData Two");
-      print(data);
+      // print(data);
 
        userProfileModel = UserProfileModel.fromJson(data);
       // print("getData Three");
-      print("my name is: ${userProfileModel.lname}");
+      // print("my name is: ${userProfileModel.lname}");
 
       user.value = userProfileModel;
       // print("getData Four");

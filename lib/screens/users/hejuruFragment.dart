@@ -44,16 +44,17 @@ class HejuruFragment extends StatelessWidget {
     HejuruModel hejuruModel = HejuruModel(
       clientNames: clientNames.text,
       phoneNumber: phoneNumber.text,
-      EPIbitugu: EP_ibitugu.text,
-      LPIgituza: LP_igituza.text,
-      LTUburebure: LT_uburebure.text,
-      LMAmaboko: LM_amaboko.text,
-      CMIgikonjo: CM_Igikonjo.text,
-      CTMunda: CT_munda.text,
-      CBCHAmatako: CB_CH_Amatako.text,
-      ubudoziID: myID,
+      epIbitugu: EP_ibitugu.text,
+      lpIgituza: LP_igituza.text,
+      ltUburebure: LT_uburebure.text,
+      lmAmaboko: LM_amaboko.text,
+      cmIgikonjo: CM_Igikonjo.text,
+      ctMunda: CT_munda.text,
+      cbChAmatako: CB_CH_Amatako.text,
+      activeStatus: "1",
+      ubudoziId: myID,
     );
-
+// may i test it ?ok
     try {
       var url = API.saveHejuruData;
       var response =

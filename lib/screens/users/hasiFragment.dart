@@ -16,6 +16,8 @@ class HasiFragment extends StatelessWidget {
   final UserProfileControler _userProfileControler =
       Get.put(UserProfileControler());
 
+      
+
 //`clientNames`, `phoneNumber`, `CT_munda`, `LP_mumatako`,
 // `CC_ibibero`, `LT_uburebure`, `CJ_mumavi`, `TB_mukirenge`, `updatedOn`,
 // `activeStatus`, `umudozi_ID`

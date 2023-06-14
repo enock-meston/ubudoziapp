@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controller/user_profile_controler.dart';
 import 'authentications/loginFragment.dart';
 import 'users/mainFragment.dart';
 
@@ -14,6 +15,8 @@ class Splash extends StatefulWidget {
   State<Splash> createState() => _SplashState();
 }
 
+final UserProfileControler userProfileControler =
+      Get.put(UserProfileControler());
 class _SplashState extends State<Splash> {
   @override
   void initState() {
@@ -57,7 +60,7 @@ class _SplashState extends State<Splash> {
                     'assets/sewing.png',
                     width: 200,
                     height: 200,
-                    color : const Color.fromRGBO(236, 82, 82, 1)),
+                    color : const Color.fromARGB(255, 43, 44, 143),),
                 nextScreen: LoginFragment(),
                 splashTransition: SplashTransition.fadeTransition,
                 backgroundColor: Colors.white)),
