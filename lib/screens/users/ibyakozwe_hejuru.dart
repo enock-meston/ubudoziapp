@@ -56,9 +56,6 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                     ],
              ),     ),
             
-          
-          
-          
             const SizedBox(
               height: 20,
             ),
@@ -89,7 +86,7 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                               "${hejuruController.hejuruDataList[index].clientNames} ",
                               
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 20,
                                 fontWeight: FontWeight.normal,
                               ),
                             ),
@@ -99,7 +96,7 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                              Text(
                               "${hejuruController.hejuruDataList[index].phoneNumber}",
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey,
                               ),
@@ -122,9 +119,62 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                         MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Ibitugu: 23",
+                                        "Ibitugu/EP: ${hejuruController.hejuruDataList[index].epIbitugu}",
                                         style: TextStyle(
-                                          fontSize: 10,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        "Igituza/LP: ${hejuruController.hejuruDataList[index].lpIgituza}",
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        "Uburebure/LT: ${hejuruController.hejuruDataList[index].ltUburebure}",
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        "Amaboko/LM:${hejuruController.hejuruDataList[index].lmAmaboko}",
+                                        style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      
+                                    ],
+                                  ),
+                                ),
+          
+                                Container(
+                                  padding: const EdgeInsets.only(top: 20),
+                                  child: Row(
+                                    // from left
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Munda/CT: ${hejuruController.hejuruDataList[index].ctMunda}",
+                                        style: TextStyle(
+                                          fontSize: 11,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.grey,
                                         ),
@@ -133,42 +183,20 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                         width: 10,
                                       ),
                                       Text(
-                                        "Igituza : 23",
+                                        "Mumatako/CB-CH: ${hejuruController.hejuruDataList[index].cbChAmatako}",
                                         style: TextStyle(
-                                          fontSize: 10,
+                                          fontSize: 11,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.grey,
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 10,
+                                        width: 8,
                                       ),
                                       Text(
-                                        "Igituza : 23",
+                                        "Igikonjo/CM: ${hejuruController.hejuruDataList[index].cmIgikonjo}",
                                         style: TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        "Igituza : 23",
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        "Igituza : 23",
-                                        style: TextStyle(
-                                          fontSize: 10,
+                                          fontSize: 11,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.grey,
                                         ),
@@ -184,93 +212,19 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.start,
                                     children: [
+
+                                     // status 
                                       Text(
-                                        "Ibitugu: 23",
+                                        "Ntiradondwa: ${hejuruController.hejuruDataList[index].activeStatus}",
+                                        // set condition to change color of status
+                                        // check if status is active or not
                                         style: TextStyle(
-                                          fontSize: 10,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
+                                          color: hejuruController.hejuruDataList[index].activeStatus != "1" ? Colors.green : Colors.red,
                                         ),
+                                        
                                       ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        "Igituza : 23",
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        "Igituza : 23",
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        "Igituza : 23",
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        "Igituza : 23",
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-          
-                                Container(
-                                  padding: const EdgeInsets.only(top: 20),
-                                  child: Row(
-                                    // from left
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Ibitugu: 23",
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                        "Igituza : 23",
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-          
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-          
                                       // button yo kwemeza
                                       Container(
                                         padding:
@@ -280,7 +234,7 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                           child: const Text(
                                             "Kwemeza",
                                             style: TextStyle(
-                                              fontSize: 10,
+                                              fontSize: 11,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
