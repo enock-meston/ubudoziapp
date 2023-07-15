@@ -10,10 +10,11 @@ import 'package:ubudoziapp/screens/users/umwirondoroFragment.dart';
 import '../../controller/hejuru_controller.dart';
 import '../../controller/user_profile_controler.dart';
 
+// ignore: use_key_in_widget_constructors
 class UserHome extends StatefulWidget {
   final UserProfileControler userProfileControler =
       Get.put(UserProfileControler());
- final HejuruController hejuruController = Get.put(HejuruController());     
+  HejuruController hejuruController = Get.put(HejuruController());  
  
   @override
   State<UserHome> createState() => _UserHomeState();

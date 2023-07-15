@@ -60,7 +60,7 @@ class _LoginFragmentState extends State<LoginFragment> {
               backgroundColor: Colors.green,
               colorText: Colors.white);
 
-          Get.offAll(UserHome());
+          Get.offAll(()=> UserHome());
           // =====
         } else if (status == "error" && message == "Password is incorrect") {
           Get.snackbar("Ubutumwa", "Ijambo banga Siryo!",

@@ -18,7 +18,7 @@ class HasiModel {
   "umudozi_ID": "1"
 } 
 */
-
+  String? id;
   String? clientNames;
   String? phoneNumber;
   String? CTMunda;
@@ -27,9 +27,11 @@ class HasiModel {
   String? LTUburebure;
   String? CJMumavi;
   String? TBMukirenge;
+  String? activeStatus;
   String? umudoziID;
 
   HasiModel({
+    this.id,
     this.clientNames,
     this.phoneNumber,
     this.CTMunda,
@@ -38,9 +40,11 @@ class HasiModel {
     this.LTUburebure,
     this.CJMumavi,
     this.TBMukirenge,
+    this.activeStatus,
     this.umudoziID,
   });
   HasiModel.fromJson(Map<String, dynamic> json) {
+    id = json['id']?.toString();
     clientNames = json['clientNames']?.toString();
     phoneNumber = json['phoneNumber']?.toString();
     CTMunda = json['CT_munda']?.toString();
@@ -49,10 +53,12 @@ class HasiModel {
     LTUburebure = json['LT_uburebure']?.toString();
     CJMumavi = json['CJ_mumavi']?.toString();
     TBMukirenge = json['TB_mukirenge']?.toString();
+    activeStatus = json['activeStatus']?.toString();
     umudoziID = json['umudozi_ID']?.toString();
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
+    data['id'] = id;
     data['clientNames'] = clientNames;
     data['phoneNumber'] = phoneNumber;
     data['CT_munda'] = CTMunda;
@@ -61,6 +67,7 @@ class HasiModel {
     data['LT_uburebure'] = LTUburebure;
     data['CJ_mumavi'] = CJMumavi;
     data['TB_mukirenge'] = TBMukirenge;
+    data['activeStatus'] = activeStatus;
     data['umudozi_ID'] = umudoziID;
     return data;
   }

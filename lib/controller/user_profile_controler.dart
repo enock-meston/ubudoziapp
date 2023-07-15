@@ -31,7 +31,7 @@ var user = UserProfileModel().obs;
       // print("response.body: ${response.body}");
 
       if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
+        // var data = jsonDecode(response.body);
         if (response.statusCode == 200) {
       var data = json.decode(response.body);
       // print("getData Two");

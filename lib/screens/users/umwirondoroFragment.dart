@@ -107,12 +107,17 @@ class UmwirondoroFragment extends StatelessWidget {
         
         backgroundColor: const Color.fromARGB(255, 43, 44, 143),
         actions: [
+          IconButton(onPressed: (){
+
+          }, icon: Icon(Icons.edit)
+          ),
           IconButton(
             onPressed: () {
               signOutUser();
             },
             icon: Icon(Icons.logout),
           )
+
         ],
       ),
       // make card profile
@@ -139,7 +144,7 @@ class UmwirondoroFragment extends StatelessWidget {
               Obx(
                 () => _userProfileControler.isLoading.value
                     ? const CircularProgressIndicator()
-                    : userInfoItemProfile(Icons.person, _userProfileControler.userProfileModel.lname!),     
+                    : userInfoItemProfile(Icons.person, _userProfileControler.userProfileModel.lname??""),     
               ),
               const SizedBox(
                 height: 10,
@@ -147,7 +152,7 @@ class UmwirondoroFragment extends StatelessWidget {
              Obx(
                 () => _userProfileControler.isLoading.value
                     ? const CircularProgressIndicator()
-                    : userInfoItemProfile(Icons.person, _userProfileControler.userProfileModel.lname!),     
+                    : userInfoItemProfile(Icons.person, _userProfileControler.userProfileModel.lname??""),     
               ),
               const SizedBox(
                 height: 10,
@@ -155,7 +160,7 @@ class UmwirondoroFragment extends StatelessWidget {
               Obx(
                 () => _userProfileControler.isLoading.value
                     ? const CircularProgressIndicator()
-                    : userInfoItemProfile(Icons.phone, _userProfileControler.userProfileModel.phoneNumber!),     
+                    : userInfoItemProfile(Icons.phone, _userProfileControler.userProfileModel.phoneNumber??""),     
               ),
             ],
           ),

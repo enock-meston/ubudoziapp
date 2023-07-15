@@ -8,18 +8,14 @@ import 'package:ubudoziapp/API_Connection/api_connection.dart';
 
 import '../../controller/user_profile_controler.dart';
 import '../../model/hejutu_model.dart';
+import 'ibyakozwe_hejuru.dart';
 
 class HejuruFragment extends StatelessWidget {
   //user profile controller
   final UserProfileControler _userProfileControler =
       Get.put(UserProfileControler());
 
-  // const HejuruFragment({super.key});
-// `clientNames`, `phoneNumber`, `EP_ibitugu`,
-// `LP_igituza`, `LT_uburebure`, `LM_amaboko`,
-//`CM_Igikonjo`, `CT_munda`, `CB_CH_Amatako`,
-
-//`activeStatus`,`ubudoziID`
+ 
 
 // form key declaration
   var formKey = GlobalKey<FormState>();
@@ -42,6 +38,7 @@ class HejuruFragment extends StatelessWidget {
     String myID = prefs.getString("userId").toString();
 
     HejuruModel hejuruModel = HejuruModel(
+      id: "",
       clientNames: clientNames.text,
       phoneNumber: phoneNumber.text,
       epIbitugu: EP_ibitugu.text,
@@ -51,7 +48,7 @@ class HejuruFragment extends StatelessWidget {
       cmIgikonjo: CM_Igikonjo.text,
       ctMunda: CT_munda.text,
       cbChAmatako: CB_CH_Amatako.text,
-      activeStatus: "1",
+      activeStatus:"1",
       ubudoziId: myID,
     );
 // may i test it ?ok
@@ -85,11 +82,13 @@ class HejuruFragment extends StatelessWidget {
                   CB_CH_Amatako.clear();
                   // close dialog
                   Get.back();
+
                 },
                 child: Text("Ok"),
               )
             ]
           );
+          Get.to(()=>IbyakozweHejuruFragment());
         }else{
           print("no object");
       }
@@ -101,7 +100,7 @@ class HejuruFragment extends StatelessWidget {
       // show error message
       Get.snackbar(
           "Error from catch", "$e");
-          print("Kubika Hejuru $e");
+          print("Error from catch to save $e");
     }
     
   }
@@ -323,8 +322,28 @@ class HejuruFragment extends StatelessWidget {
                                     onPressed: () {
                                       // check if the form is valid if not show error
                                       if (formKey.currentState!.validate()) {
-                                        // call the method to save data to database
+                                        // check if TextEditingControllers are empty
+                                        if (clientNames.text.isEmpty ||
+                                            phoneNumber.text.isEmpty ||
+                                            EP_ibitugu.text.isEmpty ||
+                                            LP_igituza.text.isEmpty ||
+                                            LT_uburebure.text.isEmpty ||
+                                            LM_amaboko.text.isEmpty ||
+                                            CM_Igikonjo.text.isEmpty ||
+                                            CT_munda.text.isEmpty ||
+                                            CB_CH_Amatako.text.isEmpty) {
+                                          // show error if TextEditingControllers are empty
+                                          Get.snackbar(
+                                              "IKOSA!",
+                                              "Mubaze mwuzuze amakuru yose asabwa!",
+                                              snackPosition:
+                                                  SnackPosition.TOP,
+                                              backgroundColor: Colors.red,
+                                              colorText: Colors.white);
+                                        } else {
+                                          // call the method to save data to database
                                         KubikaHejuru();
+                                        }
                                       }
                                     },
                                     child: const Text(

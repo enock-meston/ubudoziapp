@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // import getx
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ubudoziapp/screens/users/umwirondoroFragment.dart';
 
 import '../controller/user_profile_controler.dart';
 import 'authentications/loginFragment.dart';
@@ -27,24 +28,26 @@ class _SplashState extends State<Splash> {
   _navigateToHome() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    await Future.delayed(Duration(seconds: 3), () {});
-
-    // here is where we can ckeck if user is logged in or not
+    await Future.delayed(Duration(seconds: 3), () {
+// here is where we can ckeck if user is logged in or not
     // if logged in then navigate to home screen
     // else navigate to login screen
     // go to login screen
-    var user_id = prefs.getString("userId");
-    
+    String? userId = prefs.getString("userId") ?? null;
+    print("njyewe: $userId");
     //check if user is logged in
-    if (user_id != null) {
-      print("user_id: $user_id");
+    if (userId != "" || userId != null) {
+      print("user_id: $userId");
       // go to home screen
-      Get.off(UserHome());
+      Get.off(()=> UserHome());
     } else {
-      print("user_id 111: $user_id");
+      // print("user_id 111: $user_id");
       // go to login screen
-      Get.to(LoginFragment());
+      Get.to(()=> LoginFragment());
     }
+    });
+
+    
   }
 
   @override

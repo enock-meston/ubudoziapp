@@ -303,8 +303,25 @@ class HasiFragment extends StatelessWidget {
                                 onPressed: () {
                                   // check if the form is valid if not show error
                                   if (formKey.currentState!.validate()) {
-                                    // call the method to save data to database
-                                    kubikaHasi();
+                                   // check if TextEditingControllers are empty
+                                    if (clientNamesController.text.isEmpty ||
+                                        phoneNumberController.text.isEmpty ||
+                                        CTMundaController.text.isEmpty ||
+                                        LPMumatakoController.text.isEmpty ||
+                                        CCIbiberoController.text.isEmpty ||
+                                        LTUburebureController.text.isEmpty ||
+                                        CJMumaviController.text.isEmpty ||
+                                        TBMukirengeController.text.isEmpty) {
+                                      Get.snackbar("IKOSA!",
+                                          "Mubaze mwuzuze amakuru yose asabwa!",
+                                          snackPosition: SnackPosition.TOP,
+                                          backgroundColor: Colors.red,
+                                          colorText: Colors.white);
+                                    } else {
+                                      // call function to send data to server
+                                      kubikaHasi();
+                                    }
+                                    
                                   }
                                 },
                                 child: const Text('Bika'),

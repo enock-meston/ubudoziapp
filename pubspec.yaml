@@ -44,6 +44,7 @@ dependencies:
   simple_animations:
   flutter_form_builder:
   animated_splash_screen:
+  liquid_pull_to_refresh: ^3.0.1
   
 
 dev_dependencies:

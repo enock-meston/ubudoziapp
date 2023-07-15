@@ -15,12 +15,11 @@ class HasiController extends GetxController {
 
   var user = UserProfileModel().obs;
   
-  List<HasiModel> hasiDataList = <HasiModel>[].obs;
+   RxList<HasiModel> hasiDataList = <HasiModel>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-
     getHasiData();
   }
 
@@ -34,10 +33,10 @@ class HasiController extends GetxController {
     print("response.body hasi: ${response.body}");
 
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
         hasiDataList.add(HasiModel.fromJson(data));
+        print("data zo HASI / user ni : ${response.body}");
         isLoading(false);
 
       } else {
