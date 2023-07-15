@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:ffi';
+
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -91,5 +91,60 @@ class HejuruController extends GetxController {
 
     }
   }
+
+  kwemezaData(String id,String phoneNumber1,String clientNames1) async{
+      // send sms to phone 
+      // ==========
+      String message = "Muraho neza $clientNames1, Ubu umwenda wanyu wo kwambara mwadodesheje Ubu wamaze kurangira, mwegera Umudozi akawubaha, Murakoze";
+  var data = {
+    "sender": 'REMS',
+    "recipients": "$phoneNumber1",
+    "message": "$message",
+  };
+
+  var url = Uri.parse("https://www.intouchsms.co.rw/api/sendsms/.json");
+  var username = "djeric";
+  var password = "Eric@12345";
+
+  var response = await http.post(url,
+      headers: <String, String>{
+        'Authorization': 'Basic ' +
+            base64Encode(utf8.encode('$username:$password')),
+      },
+      body: data);
+
+  if (response.statusCode == 200) {
+    // SMS sent successfully
+    var result = response.body;
+    print(result);
+  } else {
+    // Error sending SMS
+    print('Failed to send SMS. Error code: ${response.statusCode}');
+  }
+
+
+  // update data method in order to change the status of the data
+  // ==========
+  var url1 = Uri.parse("${API.updateHejuruDataStatus}?id=$id");
+  var response1 = await http.get(url1);
+  if (response1.statusCode == 200) {
+    print("data zo hejuru tugendeye ku mu user ni : ${response1.body}");
+    // dialog
+    Get.snackbar("Success", "Umwenda Mwemejwe neza Ko warangiye!!",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white);
+    Get.to(IbyakozweHejuruFragment());
+  } else {
+    print("error - ${response1.statusCode}");
+}
+// ==========
+
+// Call the function to send the SMS
+
+      //==========
+
+  
 }
 
+}

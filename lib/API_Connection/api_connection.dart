@@ -20,4 +20,7 @@ class API {
   static const getHasiData = hostConnect + "/selectHasi.php";
   //delete hejuru data
   static const deleteHejuruData = hostConnect + "/deleteHejuru.php";
+
+  // update data yo hejuru
+  static const updateHejuruDataStatus = hostConnect + "/updateHejuruStatus.php";
 }

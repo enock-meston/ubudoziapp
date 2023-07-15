@@ -9,6 +9,8 @@ import 'package:ubudoziapp/model/hasi_model.dart';
 import '../../controller/user_profile_controler.dart';
 import 'package:http/http.dart' as http;
 
+import '../../widgets/app_bar.dart';
+
 class HasiFragment extends StatelessWidget {
   // const HasiFragment({super.key});
 
@@ -42,6 +44,7 @@ class HasiFragment extends StatelessWidget {
 
 //use model to assign values
     HasiModel hasiModel = HasiModel(
+      id: "",
       clientNames: clientNamesController.text,
       phoneNumber: phoneNumberController.text,
       CTMunda: CTMundaController.text,
@@ -50,6 +53,7 @@ class HasiFragment extends StatelessWidget {
       LTUburebure: LTUburebureController.text,
       CJMumavi: CJMumaviController.text,
       TBMukirenge: TBMukirengeController.text,
+      activeStatus: "",
       umudoziID: myID,
     );
 
@@ -111,9 +115,9 @@ class HasiFragment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Hasi"),
-        backgroundColor: const Color.fromARGB(255, 43, 44, 143),
+      appBar: CustomAppBar(
+        title: "Kwandika Umwenda Wo Hasi",
+       
       ),
       body: SingleChildScrollView(
         child: Column(

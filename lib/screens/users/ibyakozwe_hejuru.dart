@@ -4,6 +4,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:ubudoziapp/controller/hejuru_controller.dart';
 
 import '../../controller/user_profile_controler.dart';
+import '../../widgets/app_bar.dart';
 
 class IbyakozweHejuruFragment extends StatefulWidget {
   @override
@@ -33,7 +34,16 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-            body: LiquidPullToRefresh(
+        appBar: CustomAppBar(
+          title: "Ibyakozwe Hejuru",
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.search),
+            ),
+          ],
+        ),
+        body: LiquidPullToRefresh(
           height: 200,
           backgroundColor: Color.fromARGB(255, 43, 44, 143),
           animSpeedFactor: 2,
@@ -46,28 +56,6 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                   height: 20,
                 ),
                 // title
-                Container(
-                  padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                  child: Row(
-                    children: [
-                      const Image(
-                        image: AssetImage("assets/sewing.png"),
-                        color: Color.fromARGB(255, 43, 44, 143),
-                        width: 50,
-                        height: 30,
-                      ),
-                      const Spacer(),
-                      const Text(
-                        "Hejuru",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 43, 44, 143),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
 
                 const SizedBox(
                   height: 20,
@@ -259,7 +247,83 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                             padding:
                                                 const EdgeInsets.only(left: 8),
                                             child: ElevatedButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                // get data id
+                                                String dataId1 =
+                                                    "${hejuruController.hejuruDataList[index].id}";
+                                                String phoneNumber1 =
+                                                    "${hejuruController.hejuruDataList[index].phoneNumber}";
+                                                String clientNames1 =
+                                                    "${hejuruController.hejuruDataList[index].clientNames}";
+                                                print(" my name $clientNames1");
+                                                // ask for confirmation
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: Text(
+                                                        "Kwemeza",
+                                                        style: TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      content: Text(
+                                                        "Mugiye Kwemeza ko mwasoje kudoda uyu Mwenda!",
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            // close dialog
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Text(
+                                                            "Oya",
+                                                            style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Colors.red,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            // close dialog
+                                                            Navigator.pop(
+                                                                context);
+                                                            // call function to update data
+                                                            hejuruController
+                                                                .kwemezaData(
+                                                                    dataId1,
+                                                                    phoneNumber1,clientNames1);
+                                                          },
+                                                          child: Text(
+                                                            "Yego",
+                                                            style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  Colors.green,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
                                               child: const Text(
                                                 "Kwemeza",
                                                 style: TextStyle(
@@ -285,8 +349,9 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                             child: ElevatedButton(
                                               onPressed: () {
                                                 // get data id
-                                                String dataId = "${hejuruController.hejuruDataList[index].id}";
-                                               // ask for confirmation
+                                                String dataId =
+                                                    "${hejuruController.hejuruDataList[index].id}";
+                                                // ask for confirmation
                                                 showDialog(
                                                   context: context,
                                                   builder:
@@ -344,8 +409,7 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
-                                                              color:
-                                                                  Colors.red,
+                                                              color: Colors.red,
                                                             ),
                                                           ),
                                                         ),
@@ -353,7 +417,6 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                                     );
                                                   },
                                                 );
-                                               
                                               },
                                               child: const Text(
                                                 "Siba",

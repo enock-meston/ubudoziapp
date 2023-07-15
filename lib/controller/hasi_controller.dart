@@ -23,19 +23,22 @@ class HasiController extends GetxController {
     getHasiData();
   }
 
-  Future<void> getHasiData() async {
+  Future getHasiData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? userId = sharedPreferences.getString("userId");
     
-    var url = Uri.parse("${API.getHasiData}?userId=$userId");
+    // var url = Uri.parse("${API.getHasiData}?userId=$userId");
+    // var url = "http://192.168.1.69/ubudoziweb/android/selectHasi.php";
+
     var response = await http.get(Uri.parse("${API.getHasiData}?userId=$userId"));
-    print(url);
+    // print("url $url");
     print("response.body hasi: ${response.body}");
 
     if (response.statusCode == 200) {
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
-        hasiDataList.add(HasiModel.fromJson(data));
+        hasiDataList.value =  hasiModelsFromJson(jsonEncode(data["data"]));
+        hasiDataList.refresh();
         print("data zo HASI / user ni : ${response.body}");
         isLoading(false);
 

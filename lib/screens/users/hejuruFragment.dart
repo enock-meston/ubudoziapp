@@ -8,6 +8,7 @@ import 'package:ubudoziapp/API_Connection/api_connection.dart';
 
 import '../../controller/user_profile_controler.dart';
 import '../../model/hejutu_model.dart';
+import '../../widgets/app_bar.dart';
 import 'ibyakozwe_hejuru.dart';
 
 class HejuruFragment extends StatelessWidget {
@@ -109,9 +110,14 @@ class HejuruFragment extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text("Hejuru"),
-        backgroundColor: const Color.fromARGB(255, 43, 44, 143),
+      appBar: CustomAppBar(
+          title: "Andika Umwenda Wo Hejuru",  
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.search ),
+            ),
+          ]
       ),
       body: SingleChildScrollView(
         child: Column(

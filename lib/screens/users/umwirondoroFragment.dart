@@ -162,10 +162,74 @@ class UmwirondoroFragment extends StatelessWidget {
                     ? const CircularProgressIndicator()
                     : userInfoItemProfile(Icons.phone, _userProfileControler.userProfileModel.phoneNumber??""),     
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              // divider
+              const Divider(
+                thickness: 2,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              // payment button wtith icon
+              ElevatedButton.icon(
+                onPressed: () {
+                  //check if i have paid or not with dialog
+                  Get.dialog(
+                    AlertDialog(
+                      backgroundColor: Colors.grey,
+                      title: const Text(
+                        "Payment",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      content: const Text(
+                        "Kwishyura umusanze wawe ni 00 Rwf",
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: const Text(
+                            "No",
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: const Text(
+                            "Yes",
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                  
+
+                },
+                icon: const Icon(Icons.payment),
+                label: const Text("Ubu Umusanzu wawe ni Ubuntu"),
+              ),
+
+              
             ],
           ),
         ),
+        
       ),
+      
+
     );
   }
 }

@@ -23,7 +23,7 @@ var user = UserProfileModel().obs;
   }
 
   
-    Future<void> getUserProfile() async {
+    Future getUserProfile() async {
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
       String? userId = sharedPreferences.getString("userId");
 

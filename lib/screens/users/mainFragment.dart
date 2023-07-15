@@ -7,6 +7,7 @@ import 'package:ubudoziapp/screens/users/ibyakozwe_hasi.dart';
 import 'package:ubudoziapp/screens/users/ibyakozwe_hejuru.dart';
 import 'package:ubudoziapp/screens/users/umwirondoroFragment.dart';
 
+import '../../controller/hasi_controller.dart';
 import '../../controller/hejuru_controller.dart';
 import '../../controller/user_profile_controler.dart';
 
@@ -15,6 +16,7 @@ class UserHome extends StatefulWidget {
   final UserProfileControler userProfileControler =
       Get.put(UserProfileControler());
   HejuruController hejuruController = Get.put(HejuruController());  
+  HasiController hasiController = Get.put(HasiController());
  
   @override
   State<UserHome> createState() => _UserHomeState();
