@@ -23,4 +23,8 @@ class API {
 
   // update data yo hejuru
   static const updateHejuruDataStatus = hostConnect + "/updateHejuruStatus.php";
+  //delete hasi data
+  static const deleteHasiData = hostConnect + "/deleteHasi.php";
+  // update data yo hasi
+  static const updateHasiDataStatus = hostConnect + "/updateHasiStatus.php";
 }
