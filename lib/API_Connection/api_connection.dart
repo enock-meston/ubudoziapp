@@ -27,4 +27,13 @@ class API {
   static const deleteHasiData = hostConnect + "/deleteHasi.php";
   // update data yo hasi
   static const updateHasiDataStatus = hostConnect + "/updateHasiStatus.php";
+
+  // phone verification
+  static const phoneVerification = hostConnect + "/phone_verification.php";
+  // save otp
+  static const saveOtp = hostConnect + "/save_otp.php";
+  // verify otp
+  static const verifyOtp = hostConnect + "/verify_otp.php";
+  // change password
+  static const changePassword = hostConnect + "/change_password.php";
 }

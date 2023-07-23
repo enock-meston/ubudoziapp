@@ -20,7 +20,7 @@ class _IbyakozweHasiFragmentState extends State<IbyakozweHasiFragment> {
 
   @override
   void initState() {
-    hasiController.getHasiData();
+    // hasiController.getHasiData();
     super.initState();
   }
 
@@ -82,7 +82,7 @@ class _IbyakozweHasiFragmentState extends State<IbyakozweHasiFragment> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Munda/CT: ${hasiController.hasiDataList[index].CTMunda}",
+                                            "Munda/CT: ${hasiController.hasiDataList[index].cTMunda}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class _IbyakozweHasiFragmentState extends State<IbyakozweHasiFragment> {
                                             width: 8,
                                           ),
                                           Text(
-                                            "Mumatako/LP: ${hasiController.hasiDataList[index].LPMumatako}",
+                                            "Mumatako/LP: ${hasiController.hasiDataList[index].lPMumatako}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -104,7 +104,7 @@ class _IbyakozweHasiFragmentState extends State<IbyakozweHasiFragment> {
                                             width: 8,
                                           ),
                                           Text(
-                                            "Ibibero/CC: ${hasiController.hasiDataList[index].CCIbibero}",
+                                            "Ibibero/CC: ${hasiController.hasiDataList[index].cCIbibero}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -115,7 +115,7 @@ class _IbyakozweHasiFragmentState extends State<IbyakozweHasiFragment> {
                                             width: 8,
                                           ),
                                           Text(
-                                            "Uburebure/LT:${hasiController.hasiDataList[index].LTUburebure}",
+                                            "Uburebure/LT:${hasiController.hasiDataList[index].lTUburebure}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -134,7 +134,7 @@ class _IbyakozweHasiFragmentState extends State<IbyakozweHasiFragment> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Mumavi/CJ: ${hasiController.hasiDataList[index].CJMumavi}",
+                                            "Mumavi/CJ: ${hasiController.hasiDataList[index].cJMumavi}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -145,7 +145,7 @@ class _IbyakozweHasiFragmentState extends State<IbyakozweHasiFragment> {
                                             width: 10,
                                           ),
                                           Text(
-                                            "Mukirenge/TB: ${hasiController.hasiDataList[index].TBMukirenge}",
+                                            "Mukirenge/TB: ${hasiController.hasiDataList[index].tBMukirenge}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -346,7 +346,7 @@ class _IbyakozweHasiFragmentState extends State<IbyakozweHasiFragment> {
                                                                 context);
                                                             // call delete function
                                                             hasiController
-                                                                .deleteHejuruData(
+                                                                .deleteHasiData(
                                                                     dataId);
                                                           },
                                                           child: Text(

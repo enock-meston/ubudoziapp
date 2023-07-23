@@ -10,14 +10,13 @@ import 'package:http/http.dart' as http;
 import '../API_Connection/api_connection.dart';
 import '../model/user_profile_model.dart';
 import '../screens/users/ibyakozwe_hejuru.dart';
-import '../screens/users/mainFragment.dart';
 
 class HejuruController extends GetxController {
   UserProfileModel userProfileModel = UserProfileModel();
   var isLoading = true.obs;
 
   var user = UserProfileModel().obs;
-  RxList<HejuruModel> hejuruDataList = <HejuruModel>[].obs;
+  var hejuruDataList = <HejuruModel>[].obs;
 
 //  @override
 //   void onInit() {
@@ -45,28 +44,39 @@ class HejuruController extends GetxController {
     // print("data zo hejuru: ${response.body}");
 
     if (response.statusCode == 200) {
-       var data = jsonDecode(response.body);
+       var jsonData = json.decode(response.body);
     
       
-     ///run
-      if (response.statusCode == 200) {
-        var data = json.decode(response.body);
-        hejuruDataList.value =  hejuruModelsFromJson(jsonEncode(data["data"]));
-        hejuruDataList.refresh();
-        print(hejuruDataList.length);
-        
-       
-       print("data zo hejuru tugendeye ku mu user ni : ${response.body}");
-
-      //   List data1 = json.decode(response.body);
-      // return data1.map((job) => new HejuruModel.fromJson(job)).toList();
-
-        isLoading(false);
-
-      } else {
-        print("Error - ${response.statusCode}");
-        
-      }
+   if (jsonData.containsKey('data') && jsonData['data'] is List) {
+    var items = jsonData['data'];
+    print("mydata1 $items");
+    for (var i in items) {
+    
+      HejuruModel _hejuruModel = HejuruModel.fromJson(i);
+      hejuruDataList.add(
+        HejuruModel(
+          id: _hejuruModel.id,
+          clientNames: _hejuruModel.clientNames,
+          phoneNumber: _hejuruModel.phoneNumber,
+          ePIbitugu: _hejuruModel.ePIbitugu,
+          lPIgituza: _hejuruModel.lPIgituza,
+          lTUburebure: _hejuruModel.lTUburebure,
+          lMAmaboko: _hejuruModel.lMAmaboko,
+          cMIgikonjo: _hejuruModel.cMIgikonjo,
+          cTMunda: _hejuruModel.cTMunda,
+          cBCHAmatako: _hejuruModel.cBCHAmatako,
+          activeStatus: _hejuruModel.activeStatus,
+          ubudoziID: _hejuruModel.ubudoziID,
+        ),
+      );
+    }
+    isLoading.value = false;
+      update();
+  } else {
+    // Handle the case where the data does not contain an iterable part
+    // For example, log an error message or handle it appropriately.
+    print('Data does not contain an iterable part.');
+  }
 
     } else {
       print("error - ${response.statusCode}");
@@ -97,14 +107,14 @@ class HejuruController extends GetxController {
       // ==========
       String message = "Muraho neza $clientNames1, Ubu umwenda wanyu wo kwambara mwadodesheje Ubu wamaze kurangira, mwegera Umudozi akawubaha, Murakoze";
   var data = {
-    "sender": 'REMS',
+    "sender": 'Nigoote ltd',
     "recipients": "$phoneNumber1",
     "message": "$message",
   };
 
   var url = Uri.parse("https://www.intouchsms.co.rw/api/sendsms/.json");
-  var username = "djeric";
-  var password = "Eric@12345";
+  var username = "enock-meston";
+  var password = "Enock@123";
 
   var response = await http.post(url,
       headers: <String, String>{

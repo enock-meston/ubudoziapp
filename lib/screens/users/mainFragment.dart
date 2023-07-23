@@ -76,8 +76,8 @@ class _UserHomeState extends State<UserHome> {
             label: "IbyoHasi",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Umwirondoro",
+            icon: Icon(Icons.settings),
+            label: "Setingi",
           ),
         ],
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ubudoziapp/widgets/app_bar.dart';
 
 import '../../controller/user_profile_controler.dart';
 import '../authentications/loginFragment.dart';
@@ -65,9 +66,7 @@ class UmwirondoroFragment extends StatelessWidget {
     }
   }
 
-
-
- Widget userInfoItemProfile(IconData iconData,String userData){
+  Widget userInfoItemProfile(IconData iconData, String userData) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -82,10 +81,11 @@ class UmwirondoroFragment extends StatelessWidget {
           Icon(
             iconData,
             size: 30,
-              color: Colors.black,
+            color: Colors.black,
           ),
-          const SizedBox(height: 16,),
-
+          const SizedBox(
+            height: 16,
+          ),
           Text(
             userData,
             style: const TextStyle(
@@ -103,23 +103,10 @@ class UmwirondoroFragment extends StatelessWidget {
     _userProfileControler.getUserProfile();
 
     return Scaffold(
-      appBar: AppBar(
-        
-        backgroundColor: const Color.fromARGB(255, 43, 44, 143),
-        actions: [
-          IconButton(onPressed: (){
-
-          }, icon: Icon(Icons.edit)
-          ),
-          IconButton(
-            onPressed: () {
-              signOutUser();
-            },
-            icon: Icon(Icons.logout),
-          )
-
-        ],
+      appBar: CustomAppBar(
+        title: "Umwirondoro",
       ),
+
       // make card profile
       body: Card(
         child: Padding(
@@ -134,25 +121,17 @@ class UmwirondoroFragment extends StatelessWidget {
                   backgroundColor: const Color.fromARGB(255, 43, 44, 143),
                 ),
               ),
-              
+
               const SizedBox(
                 height: 10,
               ),
-
 
               //  user Obx and isLoading to check if data is loading or not
               Obx(
                 () => _userProfileControler.isLoading.value
                     ? const CircularProgressIndicator()
-                    : userInfoItemProfile(Icons.person, _userProfileControler.userProfileModel.lname??""),     
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-             Obx(
-                () => _userProfileControler.isLoading.value
-                    ? const CircularProgressIndicator()
-                    : userInfoItemProfile(Icons.person, _userProfileControler.userProfileModel.lname??""),     
+                    : userInfoItemProfile(Icons.person,
+                        _userProfileControler.userProfileModel.lname ?? ""),
               ),
               const SizedBox(
                 height: 10,
@@ -160,7 +139,19 @@ class UmwirondoroFragment extends StatelessWidget {
               Obx(
                 () => _userProfileControler.isLoading.value
                     ? const CircularProgressIndicator()
-                    : userInfoItemProfile(Icons.phone, _userProfileControler.userProfileModel.phoneNumber??""),     
+                    : userInfoItemProfile(Icons.person,
+                        _userProfileControler.userProfileModel.lname ?? ""),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Obx(
+                () => _userProfileControler.isLoading.value
+                    ? const CircularProgressIndicator()
+                    : userInfoItemProfile(
+                        Icons.phone,
+                        _userProfileControler.userProfileModel.phoneNumber ??
+                            ""),
               ),
               const SizedBox(
                 height: 10,
@@ -215,21 +206,50 @@ class UmwirondoroFragment extends StatelessWidget {
                       ],
                     ),
                   );
-                  
-
                 },
                 icon: const Icon(Icons.payment),
                 label: const Text("Ubu Umusanzu wawe ni Ubuntu"),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 2, 97, 23),
+                  ), // Set your desired background color
+                ),
               ),
 
-              
+              // change password button
+              ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.lock),
+                label: const Text("Change Password"),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 138, 154, 167),
+                  ), // Set your desired background color
+                ),
+              ),
+
+              // logout button
+              ElevatedButton.icon(
+                onPressed: () {
+                  signOutUser();
+                },
+                icon: const Icon(
+                  Icons.logout,
+                ),
+                label: const Text(
+                  "Logout",
+                  style: TextStyle(fontSize: 18),
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 138, 154, 167),
+                  ), // Set your desired background color
+                ),
+              ),
             ],
           ),
         ),
-        
       ),
-      
-
     );
   }
 }

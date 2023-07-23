@@ -42,15 +42,15 @@ class HejuruFragment extends StatelessWidget {
       id: "",
       clientNames: clientNames.text,
       phoneNumber: phoneNumber.text,
-      epIbitugu: EP_ibitugu.text,
-      lpIgituza: LP_igituza.text,
-      ltUburebure: LT_uburebure.text,
-      lmAmaboko: LM_amaboko.text,
-      cmIgikonjo: CM_Igikonjo.text,
-      ctMunda: CT_munda.text,
-      cbChAmatako: CB_CH_Amatako.text,
+      ePIbitugu: EP_ibitugu.text,
+      lPIgituza: LP_igituza.text,
+      lTUburebure: LT_uburebure.text,
+      lMAmaboko: LM_amaboko.text,
+      cMIgikonjo: CM_Igikonjo.text,
+      cTMunda: CT_munda.text,
+      cBCHAmatako: CB_CH_Amatako.text,
       activeStatus:"1",
-      ubudoziId: myID,
+      ubudoziID: myID,
     );
 // may i test it ?ok
     try {

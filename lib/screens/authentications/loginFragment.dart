@@ -7,6 +7,7 @@ import 'package:ubudoziapp/screens/users/mainFragment.dart';
 
 import '../../API_Connection/api_connection.dart';
 import '../../model/user-model.dart';
+import 'forgetPassword.dart';
 import 'registrationFragment.dart';
 import 'package:http/http.dart' as http;
 
@@ -222,7 +223,9 @@ class _LoginFragmentState extends State<LoginFragment> {
                           // TextButton here
 
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(ForgetPassword());
+                            },
                             child: Text("Nibagiwe Ijambo banga"),
                           ),
                         ],

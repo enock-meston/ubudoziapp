@@ -126,7 +126,7 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Ibitugu/EP: ${hejuruController.hejuruDataList[index].epIbitugu}",
+                                            "Ibitugu/EP: ${hejuruController.hejuruDataList[index].ePIbitugu}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -137,7 +137,7 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                             width: 8,
                                           ),
                                           Text(
-                                            "Igituza/LP: ${hejuruController.hejuruDataList[index].lpIgituza}",
+                                            "Igituza/LP: ${hejuruController.hejuruDataList[index].lPIgituza}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -148,7 +148,7 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                             width: 8,
                                           ),
                                           Text(
-                                            "Uburebure/LT: ${hejuruController.hejuruDataList[index].ltUburebure}",
+                                            "Uburebure/LT: ${hejuruController.hejuruDataList[index].lTUburebure}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -159,7 +159,7 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                             width: 8,
                                           ),
                                           Text(
-                                            "Amaboko/LM:${hejuruController.hejuruDataList[index].lmAmaboko}",
+                                            "Amaboko/LM:${hejuruController.hejuruDataList[index].lMAmaboko}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -178,7 +178,7 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Munda/CT: ${hejuruController.hejuruDataList[index].ctMunda}",
+                                            "Munda/CT: ${hejuruController.hejuruDataList[index].cTMunda}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -189,7 +189,7 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                             width: 10,
                                           ),
                                           Text(
-                                            "Mumatako/CB-CH: ${hejuruController.hejuruDataList[index].cbChAmatako}",
+                                            "Mumatako/CB-CH: ${hejuruController.hejuruDataList[index].cBCHAmatako}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -200,7 +200,7 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                                             width: 8,
                                           ),
                                           Text(
-                                            "Igikonjo/CM: ${hejuruController.hejuruDataList[index].cmIgikonjo}",
+                                            "Igikonjo/CM: ${hejuruController.hejuruDataList[index].cMIgikonjo}",
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,

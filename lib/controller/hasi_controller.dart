@@ -18,7 +18,7 @@ class HasiController extends GetxController {
 
   var user = UserProfileModel().obs;
   
-   RxList<HasiModel> hasiDataList = <HasiModel>[].obs;
+   var hasiDataList = <HasiModel>[].obs;
 
   @override
   void onInit() {
@@ -34,34 +34,48 @@ class HasiController extends GetxController {
     // var url = "http://192.168.1.69/ubudoziweb/android/selectHasi.php";
 
     var response = await http.get(Uri.parse("${API.getHasiData}?userId=$userId"));
-    // print("url $url");
-    print("response.body hasi: ${response.body}");
+    
+   if (response.statusCode == 200) {
+  var jsonData = json.decode(response.body);
 
-    if (response.statusCode == 200) {
-      if (response.statusCode == 200) {
-        var data = json.decode(response.body);
-        hasiDataList.value =  hasiModelsFromJson(jsonEncode(data["data"]));
-        hasiDataList.refresh();
-        print("data zo HASI / user ni : ${response.body}");
-        isLoading(false);
-
-      } else {
-        print("Error - ${response.statusCode}");
-        
-      }
-
-    } else {
-      print("error - ${response.statusCode}");
+  // if (data.containsKey('data') && data['data'] is List) {
+    var items = jsonData['data'];
+// print("mydata $items");
+    for (var i in items) {
+      HasiModel _hasiModel = HasiModel.fromJson(i);
+      hasiDataList.add(
+        HasiModel(
+          id: _hasiModel.id,
+          clientNames: _hasiModel.clientNames,
+          phoneNumber: _hasiModel.phoneNumber,
+          cTMunda: _hasiModel.cTMunda,
+          lPMumatako: _hasiModel.lPMumatako,
+          cCIbibero: _hasiModel.cCIbibero,
+          lTUburebure: _hasiModel.lTUburebure,
+          cJMumavi: _hasiModel.cJMumavi,
+          tBMukirenge: _hasiModel.tBMukirenge,
+          updatedOn: _hasiModel.updatedOn,
+          activeStatus: _hasiModel.activeStatus,
+          umudoziID: _hasiModel.umudoziID,
+        ),
+      );
 
     }
+    isLoading.value = false;
+      update();
+  // } else {
+    // Handle the case where the data does not contain an iterable part
+    // For example, log an error message or handle it appropriately.
+  //   print('Data does not contain an iterable part.');
+  // }
+}
       
     }
 
-    Future deleteHejuruData(String id) async {
+    Future deleteHasiData(String id) async {
       var url = Uri.parse("${API.deleteHasiData}?id=$id");
     var response = await http.get(url);
     if (response.statusCode == 200) {
-      print("data zo hejuru tugendeye ku mu user ni : ${response.body}");
       // dialog
       Get.snackbar("Success", "Data deleted successfully",
           snackPosition: SnackPosition.BOTTOM,
@@ -81,14 +95,14 @@ class HasiController extends GetxController {
       String message = "Muraho neza $clientNames1, Ubu umwenda wanyu wo kwambara mwadodesheje "
       "Ubu wamaze kurangira, mwegera Umudozi akawubaha, Murakoze";
   var data = {
-    "sender": 'REMS',
+    "sender": 'Nigoote ltd',
     "recipients": "$phoneNumber1",
     "message": "$message",
   };
 
   var url = Uri.parse("https://www.intouchsms.co.rw/api/sendsms/.json");
-  var username = "djeric";
-  var password = "Eric@12345";
+  var username = "enock-meston";
+  var password = "Enock@123";
 
   var response = await http.post(url,
       headers: <String, String>{
