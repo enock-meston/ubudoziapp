@@ -29,25 +29,9 @@ class _SplashState extends State<Splash> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await Future.delayed(Duration(seconds: 3), () {
-// here is where we can ckeck if user is logged in or not
-    // if logged in then navigate to home screen
-    // else navigate to login screen
-    // go to login screen
-    String? userId = prefs.getString("userId") ?? null;
-    print("njyewe: $userId");
-    //check if user is logged in
-    if (userId != "" || userId != null) {
-      print("user_id: $userId");
-      // go to home screen
-      Get.off(()=> UserHome());
-    } else {
-      // print("user_id 111: $user_id");
-      // go to login screen
-      Get.to(()=> LoginFragment());
-    }
+    Get.off(()=> UserHome());
+  
     });
-
-    
   }
 
   @override
@@ -64,7 +48,7 @@ class _SplashState extends State<Splash> {
                     width: 200,
                     height: 200,
                     color : const Color.fromARGB(255, 43, 44, 143),),
-                nextScreen: LoginFragment(),
+                nextScreen: UserHome(),
                 splashTransition: SplashTransition.fadeTransition,
                 backgroundColor: Colors.white)),
       ),

@@ -1,0 +1,72 @@
+
+class DataSearch extends SearchDelegate<String> {
+  final HejuruController hejuruController = Get.find<HejuruController>();
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    // Actions for the AppBar (e.g., clear search query button)
+    return [
+      IconButton(
+        onPressed: () {
+          query = "";
+        },
+        icon: Icon(Icons.clear),
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    // Leading icon on the left of the AppBar (e.g., back button)
+    return IconButton(
+      onPressed: () {
+        close(context, "");
+      },
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.menu_arrow,
+        progress: transitionAnimation,
+      ),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // Build the search results based on the query
+    final List<HejuruData> searchResults = hejuruController.hejuruDataList
+        .where((data) =>
+            data.clientNames.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    return ListView.builder(
+      itemCount: searchResults.length,
+      itemBuilder: (context, index) {
+        // Build the search result items
+        return Card(
+          child: //... (the content of the Card as you did before)
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // Suggestions displayed while the user is typing the search query
+    final List<HejuruData> searchResults = hejuruController.hejuruDataList
+        .where((data) =>
+            data.clientNames.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    return ListView.builder(
+      itemCount: searchResults.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(searchResults[index].clientNames),
+          onTap: () {
+            // When a suggestion is tapped, show the result page
+            showResults(context);
+          },
+        );
+      },
+    );
+  }
+}

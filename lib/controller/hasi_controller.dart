@@ -12,13 +12,12 @@ import 'package:http/http.dart' as http;
 import '../screens/users/ibyakozwe_hasi.dart';
 
 class HasiController extends GetxController {
-
-   UserProfileModel userProfileModel = UserProfileModel();
+  UserProfileModel userProfileModel = UserProfileModel();
   var isLoading = true.obs;
 
   var user = UserProfileModel().obs;
-  
-   var hasiDataList = <HasiModel>[].obs;
+
+  var hasiDataList = <HasiModel>[].obs;
 
   @override
   void onInit() {
@@ -29,51 +28,54 @@ class HasiController extends GetxController {
   Future getHasiData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? userId = sharedPreferences.getString("userId");
-    
+
     // var url = Uri.parse("${API.getHasiData}?userId=$userId");
     // var url = "http://192.168.1.69/ubudoziweb/android/selectHasi.php";
 
-    var response = await http.get(Uri.parse("${API.getHasiData}?userId=$userId"));
-    
-   if (response.statusCode == 200) {
-  var jsonData = json.decode(response.body);
+    var response =
+        await http.get(Uri.parse("${API.getHasiData}?userId=$userId"));
 
-  // if (data.containsKey('data') && data['data'] is List) {
-    var items = jsonData['data'];
-// print("mydata $items");
-    for (var i in items) {
-      HasiModel _hasiModel = HasiModel.fromJson(i);
-      hasiDataList.add(
-        HasiModel(
-          id: _hasiModel.id,
-          clientNames: _hasiModel.clientNames,
-          phoneNumber: _hasiModel.phoneNumber,
-          cTMunda: _hasiModel.cTMunda,
-          lPMumatako: _hasiModel.lPMumatako,
-          cCIbibero: _hasiModel.cCIbibero,
-          lTUburebure: _hasiModel.lTUburebure,
-          cJMumavi: _hasiModel.cJMumavi,
-          tBMukirenge: _hasiModel.tBMukirenge,
-          updatedOn: _hasiModel.updatedOn,
-          activeStatus: _hasiModel.activeStatus,
-          umudoziID: _hasiModel.umudoziID,
-        ),
-      );
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      var status = jsonData['status'];
+      print("status $status");
 
+      if (jsonData.containsKey('data') && jsonData['data'] is List) {
+        var items = jsonData['data'];
+        print("mydata $items");
+        for (var i in items) {
+          HasiModel _hasiModel = HasiModel.fromJson(i);
+          hasiDataList.add(
+            HasiModel(
+              id: _hasiModel.id,
+              clientNames: _hasiModel.clientNames,
+              phoneNumber: _hasiModel.phoneNumber,
+              cTMunda: _hasiModel.cTMunda,
+              lPMumatako: _hasiModel.lPMumatako,
+              cCIbibero: _hasiModel.cCIbibero,
+              lTUburebure: _hasiModel.lTUburebure,
+              cJMumavi: _hasiModel.cJMumavi,
+              tBMukirenge: _hasiModel.tBMukirenge,
+              updatedOn: _hasiModel.updatedOn,
+              activeStatus: _hasiModel.activeStatus,
+              umudoziID: _hasiModel.umudoziID,
+            ),
+          );
+        }
+        isLoading.value = false;
+        update();
+      } else {
+        // Handle the case where the data does not contain an iterable part
+        // For example, log an error message or handle it appropriately.
+        print('Data does not contain an iterable part.');
+      }
+    }else{
+      print("error - ${response.statusCode}");
     }
-    isLoading.value = false;
-      update();
-  // } else {
-    // Handle the case where the data does not contain an iterable part
-    // For example, log an error message or handle it appropriately.
-  //   print('Data does not contain an iterable part.');
-  // }
-}
-      
-    }
+  }
 
-    Future deleteHasiData(String id) async {
-      var url = Uri.parse("${API.deleteHasiData}?id=$id");
+  Future deleteHasiData(String id) async {
+    var url = Uri.parse("${API.deleteHasiData}?id=$id");
     var response = await http.get(url);
     if (response.statusCode == 200) {
       // dialog
@@ -81,69 +83,63 @@ class HasiController extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
-    Get.to(IbyakozweHasiFragment());
+      Get.to(IbyakozweHasiFragment());
     } else {
       print("error - ${response.statusCode}");
-
     }
-    }
-
-    
-  kwemezaData(String id,String phoneNumber1,String clientNames1) async{
-      // send sms to phone 
-      // ==========
-      String message = "Muraho neza $clientNames1, Ubu umwenda wanyu wo kwambara mwadodesheje "
-      "Ubu wamaze kurangira, mwegera Umudozi akawubaha, Murakoze";
-  var data = {
-    "sender": 'Nigoote ltd',
-    "recipients": "$phoneNumber1",
-    "message": "$message",
-  };
-
-  var url = Uri.parse("https://www.intouchsms.co.rw/api/sendsms/.json");
-  var username = "enock-meston";
-  var password = "Enock@123";
-
-  var response = await http.post(url,
-      headers: <String, String>{
-        'Authorization': 'Basic ' +
-            base64Encode(utf8.encode('$username:$password')),
-      },
-      body: data);
-
-  if (response.statusCode == 200) {
-    // SMS sent successfully
-    var result = response.body;
-    print(result);
-  } else {
-    // Error sending SMS
-    print('Failed to send SMS. Error code: ${response.statusCode}');
   }
 
+  kwemezaData(String id, String phoneNumber1, String clientNames1) async {
+    // send sms to phone
+    // ==========
+    String message =
+        "Muraho neza $clientNames1, Ubu umwenda wanyu wo kwambara mwadodesheje "
+        "Ubu wamaze kurangira, mwegera Umudozi akawubaha, Murakoze";
+    var data = {
+      "sender": 'Nigoote ltd',
+      "recipients": "$phoneNumber1",
+      "message": "$message",
+    };
 
-  // update data method in order to change the status of the data
-  // ==========
-  var url1 = Uri.parse("${API.updateHasiDataStatus}?id=$id");
-  var response1 = await http.get(url1);
-  if (response1.statusCode == 200) {
-    print("data zo hejuru tugendeye ku mu user ni : ${response1.body}");
-    // dialog
-    Get.snackbar("Success", "Umwenda Mwemejwe neza Ko warangiye!!",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white);
-    Get.to(IbyakozweHasiFragment());
-  } else {
-    print("error - ${response1.statusCode}");
-}
+    var url = Uri.parse("https://www.intouchsms.co.rw/api/sendsms/.json");
+    var username = "enock-meston";
+    var password = "Enock@123";
+
+    var response = await http.post(url,
+        headers: <String, String>{
+          'Authorization':
+              'Basic ' + base64Encode(utf8.encode('$username:$password')),
+        },
+        body: data);
+
+    if (response.statusCode == 200) {
+      // SMS sent successfully
+      var result = response.body;
+      print(result);
+    } else {
+      // Error sending SMS
+      print('Failed to send SMS. Error code: ${response.statusCode}');
+    }
+
+    // update data method in order to change the status of the data
+    // ==========
+    var url1 = Uri.parse("${API.updateHasiDataStatus}?id=$id");
+    var response1 = await http.get(url1);
+    if (response1.statusCode == 200) {
+      print("data zo hejuru tugendeye ku mu user ni : ${response1.body}");
+      // dialog
+      Get.snackbar("Success", "Umwenda Mwemejwe neza Ko warangiye!!",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
+      Get.to(IbyakozweHasiFragment());
+    } else {
+      print("error - ${response1.statusCode}");
+    }
 // ==========
 
 // Call the function to send the SMS
 
-      //==========
-
-  
-}
-
-
+    //==========
+  }
 }

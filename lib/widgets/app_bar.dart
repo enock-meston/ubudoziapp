@@ -23,13 +23,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           image: AssetImage("assets/sewing.png"),
           color: Color.fromARGB(255, 43, 44, 143),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.search),
-            color: Color.fromARGB(255, 43, 44, 143),
-          ),
-        ],
+      //  actions be null
+        actions: actions.isEmpty ? null : actions,
+        
       );
   }
 

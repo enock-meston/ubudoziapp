@@ -16,8 +16,6 @@ class HejuruFragment extends StatelessWidget {
   final UserProfileControler _userProfileControler =
       Get.put(UserProfileControler());
 
- 
-
 // form key declaration
   var formKey = GlobalKey<FormState>();
 
@@ -49,7 +47,7 @@ class HejuruFragment extends StatelessWidget {
       cMIgikonjo: CM_Igikonjo.text,
       cTMunda: CT_munda.text,
       cBCHAmatako: CB_CH_Amatako.text,
-      activeStatus:"1",
+      activeStatus: "1",
       ubudoziID: myID,
     );
 // may i test it ?ok
@@ -62,48 +60,44 @@ class HejuruFragment extends StatelessWidget {
       //check if response is success
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        
-        if (data['success'] == true) {
-         // show dialog
-          Get.defaultDialog(
-            title: "Success",
-            middleText: "Umwenda wawe winjijwe neza !",
-            actions: [
-              TextButton(
-                onPressed: (){
-                  // clear all text fields
-                  clientNames.clear();
-                  phoneNumber.clear();
-                  EP_ibitugu.clear();
-                  LP_igituza.clear();
-                  LT_uburebure.clear();
-                  LM_amaboko.clear();
-                  CM_Igikonjo.clear();
-                  CT_munda.clear();
-                  CB_CH_Amatako.clear();
-                  // close dialog
-                  Get.back();
 
-                },
-                child: Text("Ok"),
-              )
-            ]
-          );
-          Get.to(()=>IbyakozweHejuruFragment());
-        }else{
+        if (data['success'] == true) {
+          // show dialog
+          Get.defaultDialog(
+              title: "Success",
+              middleText: "Umwenda wawe winjijwe neza !",
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    // clear all text fields
+                    clientNames.clear();
+                    phoneNumber.clear();
+                    EP_ibitugu.clear();
+                    LP_igituza.clear();
+                    LT_uburebure.clear();
+                    LM_amaboko.clear();
+                    CM_Igikonjo.clear();
+                    CT_munda.clear();
+                    CB_CH_Amatako.clear();
+                    // close dialog
+                    Get.back();
+                    Get.to(() => IbyakozweHejuruFragment());
+                  },
+                  child: Text("Ok"),
+                )
+              ]);
+        } else {
           print("no object");
-      }
+        }
       } else {
         // show error message
         Get.snackbar("Error from response", " kubika byanze");
       }
     } catch (e) {
       // show error message
-      Get.snackbar(
-          "Error from catch", "$e");
-          print("Error from catch to save $e");
+      Get.snackbar("Error from catch", "$e");
+      print("Error from catch to save $e");
     }
-    
   }
 
   @override
@@ -111,13 +105,7 @@ class HejuruFragment extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
-          title: "Andika Umwenda Wo Hejuru",  
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.search ),
-            ),
-          ]
+        title: "Andika Umwenda Wo Hejuru",
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -321,10 +309,10 @@ class HejuruFragment extends StatelessWidget {
                                 Expanded(
                                   child: // add button to body
                                       ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                  primary: Color.fromARGB(255, 43, 44, 143),
-                                  onPrimary: Colors.white,
-                                ),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Color.fromARGB(255, 43, 44, 143),
+                                      onPrimary: Colors.white,
+                                    ),
                                     onPressed: () {
                                       // check if the form is valid if not show error
                                       if (formKey.currentState!.validate()) {
@@ -339,16 +327,14 @@ class HejuruFragment extends StatelessWidget {
                                             CT_munda.text.isEmpty ||
                                             CB_CH_Amatako.text.isEmpty) {
                                           // show error if TextEditingControllers are empty
-                                          Get.snackbar(
-                                              "IKOSA!",
+                                          Get.snackbar("IKOSA!",
                                               "Mubaze mwuzuze amakuru yose asabwa!",
-                                              snackPosition:
-                                                  SnackPosition.TOP,
+                                              snackPosition: SnackPosition.TOP,
                                               backgroundColor: Colors.red,
                                               colorText: Colors.white);
                                         } else {
                                           // call the method to save data to database
-                                        KubikaHejuru();
+                                          KubikaHejuru();
                                         }
                                       }
                                     },

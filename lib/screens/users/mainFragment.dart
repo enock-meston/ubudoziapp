@@ -11,7 +11,6 @@ import '../../controller/hasi_controller.dart';
 import '../../controller/hejuru_controller.dart';
 import '../../controller/user_profile_controler.dart';
 
-// ignore: use_key_in_widget_constructors
 class UserHome extends StatefulWidget {
   final UserProfileControler userProfileControler =
       Get.put(UserProfileControler());
@@ -23,8 +22,6 @@ class UserHome extends StatefulWidget {
 }
 
 class _UserHomeState extends State<UserHome> {
-  
-
   int currentIndex = 0;
 
   final screens = [
@@ -35,13 +32,19 @@ class _UserHomeState extends State<UserHome> {
     UmwirondoroFragment(),
   ];
 
+  PageController _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        // IndexedStack is used to make every screen be in live
-        index: currentIndex,
+      body: PageView(
+        controller: _pageController,
         children: screens,
+        onPageChanged: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
@@ -50,13 +53,17 @@ class _UserHomeState extends State<UserHome> {
         selectedItemColor: const Color.fromARGB(255, 158, 155, 155),
         unselectedItemColor: Colors.white,
         iconSize: 30,
-        // onTap: (index) {
-        //   setState(() {
-        //     currentIndex = index;
-        //   });
-        // }, or
-        onTap: (index) => setState(() => currentIndex = index),
-
+        onTap: (index) {
+          // Set the selected index and animate to the corresponding page
+          setState(() {
+            currentIndex = index;
+          });
+          _pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        },
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.upcoming),

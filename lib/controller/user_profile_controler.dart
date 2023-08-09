@@ -18,7 +18,6 @@ var user = UserProfileModel().obs;
  @override
   void onInit() {
     super.onInit();
-
     getUserProfile();
   }
 

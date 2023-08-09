@@ -53,8 +53,10 @@ class HasiFragment extends StatelessWidget {
       lTUburebure: LTUburebureController.text,
       cJMumavi: CJMumaviController.text,
       tBMukirenge: TBMukirengeController.text,
+      updatedOn: "",
       activeStatus: "",
       umudoziID: myID,
+
     );
 
     try {
@@ -98,17 +100,17 @@ class HasiFragment extends StatelessWidget {
               backgroundColor: Colors.red,
               colorText: Colors.white);
         } else {
-          print("error from kubika hasi ${response.statusCode}");
+          print("error else ${response.statusCode}");
           Get.snackbar("Error", "Sisiteme ifite ikibazo!",
               snackPosition: SnackPosition.BOTTOM,
               backgroundColor: Colors.red,
               colorText: Colors.white);
         }
       } else {
-        print("error from kubika hasi ${response.statusCode}");
+        print("error from else2 ${response.statusCode}");
       }
     } catch (e) {
-      print("error from kubika hasi $e");
+      print("error from catch $e");
     }
   }
 

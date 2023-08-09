@@ -33,57 +33,53 @@ class HejuruController extends GetxController {
   
 
 
-  Future getHejuruData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? userId = sharedPreferences.getString("userId");
-    // print ("user id nii : $userId");
-    var url = Uri.parse("${API.getHejuruData}?userId=$userId");
-    // print("url ni : $url");
-    var response = await http.get(url);
-    // print(url);
-    // print("data zo hejuru: ${response.body}");
+Future<void> getHejuruData() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  String? userId = sharedPreferences.getString("userId");
+  
+  var url = Uri.parse("${API.getHejuruData}?userId=$userId");
+  var response = await http.get(url);
 
-    if (response.statusCode == 200) {
-       var jsonData = json.decode(response.body);
+  if (response.statusCode == 200) {
+    var jsonData = json.decode(response.body);
     
+    if (jsonData.containsKey('data') && jsonData['data'] is List) {
+      var items = jsonData['data'];
+      List<HejuruModel> newList = []; // Create a new list to hold the items
       
-   if (jsonData.containsKey('data') && jsonData['data'] is List) {
-    var items = jsonData['data'];
-    print("mydata1 $items");
-    for (var i in items) {
-    
-      HejuruModel _hejuruModel = HejuruModel.fromJson(i);
-      hejuruDataList.add(
-        HejuruModel(
-          id: _hejuruModel.id,
-          clientNames: _hejuruModel.clientNames,
-          phoneNumber: _hejuruModel.phoneNumber,
-          ePIbitugu: _hejuruModel.ePIbitugu,
-          lPIgituza: _hejuruModel.lPIgituza,
-          lTUburebure: _hejuruModel.lTUburebure,
-          lMAmaboko: _hejuruModel.lMAmaboko,
-          cMIgikonjo: _hejuruModel.cMIgikonjo,
-          cTMunda: _hejuruModel.cTMunda,
-          cBCHAmatako: _hejuruModel.cBCHAmatako,
-          activeStatus: _hejuruModel.activeStatus,
-          ubudoziID: _hejuruModel.ubudoziID,
-        ),
-      );
-    }
-    isLoading.value = false;
+      for (var i in items) {
+        HejuruModel _hejuruModel = HejuruModel.fromJson(i);
+        newList.add(
+          HejuruModel(
+            id: _hejuruModel.id,
+            clientNames: _hejuruModel.clientNames,
+            phoneNumber: _hejuruModel.phoneNumber,
+            ePIbitugu: _hejuruModel.ePIbitugu,
+            lPIgituza: _hejuruModel.lPIgituza,
+            lTUburebure: _hejuruModel.lTUburebure,
+            lMAmaboko: _hejuruModel.lMAmaboko,
+            cMIgikonjo: _hejuruModel.cMIgikonjo,
+            cTMunda: _hejuruModel.cTMunda,
+            cBCHAmatako: _hejuruModel.cBCHAmatako,
+            activeStatus: _hejuruModel.activeStatus,
+            ubudoziID: _hejuruModel.ubudoziID,
+          ),
+        );
+      }
+      
+      // Clear the old list and update with the new one
+      hejuruDataList.clear();
+      hejuruDataList.addAll(newList);
+      
+      isLoading.value = false;
       update();
-  } else {
-    // Handle the case where the data does not contain an iterable part
-    // For example, log an error message or handle it appropriately.
-    print('Data does not contain an iterable part.');
-  }
-
     } else {
-      print("error - ${response.statusCode}");
-
+      print('Data does not contain an iterable part.');
     }
-      
-    }
+  } else {
+    print("error - ${response.statusCode}");
+  }
+}
 
     deleteHejuruData(String id) async {
     var url = Uri.parse("${API.deleteHejuruData}?id=$id");

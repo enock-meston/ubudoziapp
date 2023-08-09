@@ -29,15 +29,18 @@ class _IbyakozweHasiFragmentState extends State<IbyakozweHasiFragment> {
     return Obx(() => Scaffold(
           appBar: CustomAppBar(
             title: 'Ibyakozwe Hasi',
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.search),
-              ),
-            ],
+            
           ),
           body: SingleChildScrollView(
-            child: ListView.builder(
+            child: // check is datas are empty show circular progress indicator
+                hasiController.hasiDataList.isEmpty
+                    ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                          child: CircularProgressIndicator(color: Colors.black12,),
+                        ),
+                    )
+                    :ListView.builder(
               physics: BouncingScrollPhysics(),
               padding: EdgeInsets.all(4),
               scrollDirection: Axis.vertical,
@@ -176,7 +179,8 @@ class _IbyakozweHasiFragmentState extends State<IbyakozweHasiFragment> {
                                         children: [
                                           // status
                                           Text(
-                                            "Ntiradondwa: ${hasiController.hasiDataList[index].activeStatus}",
+                                            "Imiterere: ${hasiController.hasiDataList[index].activeStatus != "1"
+                                            ? "Yarangiye" : "Ntirasozwa"} ",
                                             // set condition to change color of status
                                             // check if status is active or not
                                             style: TextStyle(

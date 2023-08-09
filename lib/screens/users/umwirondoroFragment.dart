@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ubudoziapp/widgets/app_bar.dart';
 
+import '../../UserPreferences/user_preferences.dart';
 import '../../controller/user_profile_controler.dart';
+import '../authentications/change_password.dart';
 import '../authentications/loginFragment.dart';
 
 class UmwirondoroFragment extends StatelessWidget {
@@ -58,11 +60,10 @@ class UmwirondoroFragment extends StatelessWidget {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       await sharedPreferences.remove("userId");
-      Get.offAll(LoginFragment());
       //  delete or remove user data from phone local storage
-      // RememberUserPrefs.removeUserInfo().then((value) {
-      //   Get.offAll(Login_Screen());
-      // });
+      RememberUserPrefs.removeUserInfo().then((value) {
+        Get.offAll(LoginFragment());
+      });
     }
   }
 
@@ -116,9 +117,12 @@ class UmwirondoroFragment extends StatelessWidget {
             children: [
               Center(
                 child: CircleAvatar(
-                  radius: 80,
-                  backgroundImage: Image.asset("assets/sewing.png").image,
-                  backgroundColor: const Color.fromARGB(255, 43, 44, 143),
+                  radius: 30,
+                  backgroundColor: Colors.grey,
+                  child: const Icon(
+                    Icons.person,
+                    size: 50,
+                  ),
                 ),
               ),
 
@@ -218,7 +222,9 @@ class UmwirondoroFragment extends StatelessWidget {
 
               // change password button
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  // ntavige to change password screen
+                },
                 icon: const Icon(Icons.lock),
                 label: const Text("Change Password"),
                 style: ButtonStyle(
