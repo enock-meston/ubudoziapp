@@ -22,57 +22,52 @@ class HasiController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getHasiData();
   }
 
-  Future getHasiData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? userId = sharedPreferences.getString("userId");
+ Future<void> getHasiData() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  String? userId = sharedPreferences.getString("userId");
 
-    // var url = Uri.parse("${API.getHasiData}?userId=$userId");
-    // var url = "http://192.168.1.69/ubudoziweb/android/selectHasi.php";
+  var response = await http.get(Uri.parse("${API.getHasiData}?userId=$userId"));
 
-    var response =
-        await http.get(Uri.parse("${API.getHasiData}?userId=$userId"));
+  if (response.statusCode == 200) {
+    var jsonData = json.decode(response.body);
+    var status = jsonData['status'];
 
-    if (response.statusCode == 200) {
-      var jsonData = json.decode(response.body);
-      var status = jsonData['status'];
-      print("status $status");
+    if (jsonData.containsKey('data') && jsonData['data'] is List) {
+      var items = jsonData['data'];
+      var tempList = <HasiModel>[]; // Create a temporary list
 
-      if (jsonData.containsKey('data') && jsonData['data'] is List) {
-        var items = jsonData['data'];
-        print("mydata $items");
-        for (var i in items) {
-          HasiModel _hasiModel = HasiModel.fromJson(i);
-          hasiDataList.add(
-            HasiModel(
-              id: _hasiModel.id,
-              clientNames: _hasiModel.clientNames,
-              phoneNumber: _hasiModel.phoneNumber,
-              cTMunda: _hasiModel.cTMunda,
-              lPMumatako: _hasiModel.lPMumatako,
-              cCIbibero: _hasiModel.cCIbibero,
-              lTUburebure: _hasiModel.lTUburebure,
-              cJMumavi: _hasiModel.cJMumavi,
-              tBMukirenge: _hasiModel.tBMukirenge,
-              updatedOn: _hasiModel.updatedOn,
-              activeStatus: _hasiModel.activeStatus,
-              umudoziID: _hasiModel.umudoziID,
-            ),
-          );
-        }
-        isLoading.value = false;
-        update();
-      } else {
-        // Handle the case where the data does not contain an iterable part
-        // For example, log an error message or handle it appropriately.
-        print('Data does not contain an iterable part.');
+      for (var i in items) {
+        HasiModel _hasiModel = HasiModel.fromJson(i);
+        tempList.add(
+          HasiModel(
+            id: _hasiModel.id,
+            clientNames: _hasiModel.clientNames,
+            phoneNumber: _hasiModel.phoneNumber,
+            cTMunda: _hasiModel.cTMunda,
+            lPMumatako: _hasiModel.lPMumatako,
+            cCIbibero: _hasiModel.cCIbibero,
+            lTUburebure: _hasiModel.lTUburebure,
+            cJMumavi: _hasiModel.cJMumavi,
+            tBMukirenge: _hasiModel.tBMukirenge,
+            updatedOn: _hasiModel.updatedOn,
+            activeStatus: _hasiModel.activeStatus,
+            umudoziID: _hasiModel.umudoziID,
+          ),
+        );
       }
-    }else{
-      print("error - ${response.statusCode}");
+      
+      hasiDataList.assignAll(tempList); // Replace existing list with new data
+      isLoading.value = false;
+      update();
+    } else {
+      print('Data does not contain an iterable part.');
     }
+  } else {
+    print("error - ${response.statusCode}");
   }
+}
 
   Future deleteHasiData(String id) async {
     var url = Uri.parse("${API.deleteHasiData}?id=$id");
@@ -83,7 +78,9 @@ class HasiController extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.green,
           colorText: Colors.white);
-      Get.to(IbyakozweHasiFragment());
+          // redirect to the same page
+          Get.to(IbyakozweHasiFragment());
+
     } else {
       print("error - ${response.statusCode}");
     }

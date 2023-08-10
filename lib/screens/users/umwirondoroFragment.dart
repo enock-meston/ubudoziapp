@@ -7,6 +7,7 @@ import 'package:ubudoziapp/widgets/app_bar.dart';
 
 import '../../UserPreferences/user_preferences.dart';
 import '../../controller/user_profile_controler.dart';
+import '../../payment/subscription.dart';
 import '../authentications/change_password.dart';
 import '../authentications/loginFragment.dart';
 
@@ -106,6 +107,18 @@ class UmwirondoroFragment extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: "Umwirondoro",
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.to(Subscription());
+            },
+            icon: const Icon(
+              Icons.payments,
+              color: Color.fromARGB(255, 43, 44, 143),
+            ),
+          ),
+          
+        ],
       ),
 
       // make card profile
@@ -190,18 +203,7 @@ class UmwirondoroFragment extends StatelessWidget {
                             Get.back();
                           },
                           child: const Text(
-                            "No",
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          child: const Text(
-                            "Yes",
+                            "OK",
                             style: TextStyle(
                               color: Colors.black,
                             ),

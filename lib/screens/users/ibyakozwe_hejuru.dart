@@ -4,9 +4,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:ubudoziapp/controller/hejuru_controller.dart';
 
 import '../../controller/user_profile_controler.dart';
-import '../../model/hejutu_model.dart';
 import '../../widgets/app_bar.dart';
-import '../../widgets/card.dart';
 import 'hejuru_details.dart';
 
 class IbyakozweHejuruFragment extends StatefulWidget {
@@ -62,58 +60,62 @@ class _IbyakozweHejuruFragmentState extends State<IbyakozweHejuruFragment> {
                 itemBuilder: (context, index) {
                   var transaction = hejuruController.hejuruDataList[index];
                   return GestureDetector(
-  onTap: () {
-    // Handle the tap event here
-    Get.to(() => HejuruDataDetail(hejuruData: hejuruController.hejuruDataList[index]));
-  },
-  child: Card(
-    child: Container(
-      padding: const EdgeInsets.all(8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "${hejuruController.hejuruDataList[index].clientNames}",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-          
-          const SizedBox(
-            height: 4,
-          ),
-          // ListTitle
-          Row(
-            children: [
-              Text(
-                "Nimero ya Telephone: ${hejuruController.hejuruDataList[index].phoneNumber}",
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey,
-                ),
-              ),
-              Spacer(),
-              Text("Imiterere:"),
-              Text(
-                " ${hejuruController.hejuruDataList[index].activeStatus != "1" ? "Yarangiye" : "Ntirasozwa"}",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: hejuruController.hejuruDataList[index].activeStatus != "1"
-                          ? Colors.green
-                          : Colors.red,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    ),
-  ),
-);
+                    onTap: () {
+                      // Handle the tap event here
+                      Get.to(() => HejuruDataDetail(
+                          hejuruData: hejuruController.hejuruDataList[index]));
+                    },
+                    child: Card(
+                       elevation: 3,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${hejuruController.hejuruDataList[index].clientNames}",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
 
+                            const SizedBox(
+                              height: 4,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Nimero ya Telephone: ${hejuruController.hejuruDataList[index].phoneNumber}",
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Spacer(),
+                                Text("Imiterere:"),
+                                Text(
+                                  " ${hejuruController.hejuruDataList[index].activeStatus != "1" ? "Yarangiye" : "Ntirasozwa"}",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: hejuruController
+                                                .hejuruDataList[index]
+                                                .activeStatus !=
+                                            "1"
+                                        ? Colors.green
+                                        : Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  
+                  );
                 },
               );
             }
