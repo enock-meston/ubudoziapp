@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ubudoziapp/widgets/app_bar.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import '../../UserPreferences/user_preferences.dart';
 import '../../controller/user_profile_controler.dart';
@@ -12,13 +11,11 @@ import '../authentications/change_password.dart';
 import '../authentications/loginFragment.dart';
 
 class UmwirondoroFragment extends StatelessWidget {
-  // create instance of user profile controller
   final UserProfileControler _userProfileControler =
       Get.put(UserProfileControler());
 
-  //logout
-  signOutUser() async {
-    var resultResponce = await Get.dialog(
+  Future<void> signOutUser() async {
+    var resultResponse = await Get.dialog(
       AlertDialog(
         backgroundColor: Colors.grey,
         title: const Text(
@@ -57,11 +54,10 @@ class UmwirondoroFragment extends StatelessWidget {
         ],
       ),
     );
-    if (resultResponce == "loggedOut") {
+    if (resultResponse == "loggedOut") {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       await sharedPreferences.remove("userId");
-      //  delete or remove user data from phone local storage
       RememberUserPrefs.removeUserInfo().then((value) {
         Get.offAll(LoginFragment());
       });
@@ -101,12 +97,9 @@ class UmwirondoroFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // _userProfileControler
-    _userProfileControler.getUserProfile();
-
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Umwirondoro",
+      appBar: AppBar(
+        title: const Text("Umwirondoro"),
         actions: [
           IconButton(
             onPressed: () {
@@ -117,146 +110,118 @@ class UmwirondoroFragment extends StatelessWidget {
               color: Color.fromARGB(255, 43, 44, 143),
             ),
           ),
-          
         ],
       ),
-
-      // make card profile
-      body: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Center(
-                child: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.grey,
-                  child: const Icon(
-                    Icons.person,
-                    size: 50,
-                  ),
-                ),
-              ),
-
-              const SizedBox(
-                height: 10,
-              ),
-
-              //  user Obx and isLoading to check if data is loading or not
-              Obx(
-                () => _userProfileControler.isLoading.value
-                    ? const CircularProgressIndicator()
-                    : userInfoItemProfile(Icons.person,
+      body: FutureBuilder(
+        future: _userProfileControler.getUserProfile(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            return Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: CircleAvatar(
+                        radius: 30,
+                        backgroundColor: Colors.grey,
+                        child: const Icon(
+                          Icons.person,
+                          size: 50,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    userInfoItemProfile(Icons.person,
                         _userProfileControler.userProfileModel.lname ?? ""),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Obx(
-                () => _userProfileControler.isLoading.value
-                    ? const CircularProgressIndicator()
-                    : userInfoItemProfile(Icons.person,
-                        _userProfileControler.userProfileModel.lname ?? ""),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Obx(
-                () => _userProfileControler.isLoading.value
-                    ? const CircularProgressIndicator()
-                    : userInfoItemProfile(
+                    const SizedBox(height: 10),
+                    userInfoItemProfile(
                         Icons.phone,
                         _userProfileControler.userProfileModel.phoneNumber ??
                             ""),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              // divider
-              const Divider(
-                thickness: 2,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              // payment button wtith icon
-              ElevatedButton.icon(
-                onPressed: () {
-                  //check if i have paid or not with dialog
-                  Get.dialog(
-                    AlertDialog(
-                      backgroundColor: Colors.grey,
-                      title: const Text(
-                        "Payment",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      content: const Text(
-                        "Kwishyura umusanze wawe ni 00 Rwf",
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          child: const Text(
-                            "OK",
-                            style: TextStyle(
-                              color: Colors.black,
+                    const SizedBox(height: 10),
+                    const Divider(thickness: 2),
+                    const SizedBox(height: 10),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        Get.dialog(
+                          AlertDialog(
+                            backgroundColor: Colors.grey,
+                            title: const Text(
+                              "Payment",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
+                            content: const Text(
+                              "Kwishyura umusanze wawe ni 00 Rwf",
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                child: const Text(
+                                  "OK",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
+                        );
+                      },
+                      icon: const Icon(Icons.payment),
+                      label: const Text("Ubu Umusanzu wawe ni Ubuntu"),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Color.fromARGB(255, 2, 97, 23),
                         ),
-                      ],
+                      ),
                     ),
-                  );
-                },
-                icon: const Icon(Icons.payment),
-                label: const Text("Ubu Umusanzu wawe ni Ubuntu"),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 2, 97, 23),
-                  ), // Set your desired background color
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        // Navigte to change password screen
+                        // Get.to(ChangePasswordScreen());
+                      },
+                      icon: const Icon(Icons.lock),
+                      label: const Text("Change Password"),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Color.fromARGB(255, 138, 154, 167),
+                        ),
+                      ),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        signOutUser();
+                      },
+                      icon: const Icon(
+                        Icons.logout,
+                      ),
+                      label: const Text(
+                        "Logout",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Color.fromARGB(255, 138, 154, 167),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-
-              // change password button
-              ElevatedButton.icon(
-                onPressed: () {
-                  // ntavige to change password screen
-                },
-                icon: const Icon(Icons.lock),
-                label: const Text("Change Password"),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 138, 154, 167),
-                  ), // Set your desired background color
-                ),
-              ),
-
-              // logout button
-              ElevatedButton.icon(
-                onPressed: () {
-                  signOutUser();
-                },
-                icon: const Icon(
-                  Icons.logout,
-                ),
-                label: const Text(
-                  "Logout",
-                  style: TextStyle(fontSize: 18),
-                ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 138, 154, 167),
-                  ), // Set your desired background color
-                ),
-              ),
-            ],
-          ),
-        ),
+            );
+          }
+        },
       ),
     );
   }

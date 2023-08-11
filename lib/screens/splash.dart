@@ -29,7 +29,11 @@ class _SplashState extends State<Splash> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await Future.delayed(Duration(seconds: 3), () {
-    Get.off(()=> UserHome());
+      if (prefs.getString('userId') != null) {
+        Get.offAll(() => UserHome());
+      } else {
+        Get.offAll(() => LoginFragment());
+      }
   
     });
   }

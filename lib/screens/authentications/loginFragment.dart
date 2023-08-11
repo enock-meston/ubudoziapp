@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ubudoziapp/payment/subscription.dart';
 import 'package:ubudoziapp/screens/users/mainFragment.dart';
 
 import '../../API_Connection/api_connection.dart';
@@ -46,32 +47,59 @@ class _LoginFragmentState extends State<LoginFragment> {
         // check status and message from data
         var status = data['status'];
         var message = data['message'];
+        var payment_status = data['payment_status'];
 
         // print("status is: $status");
         // print("message is: $message");
 
         //check if status is true
-        if (status == "success" && message == "Login successful") {
+        if (status == "success" &&
+            message == "Login successful" &&
+            payment_status == "paid") {
           // save data to sharedPref
           var user_id = preferences.setString("userId", data['id']);
+          var payment_status =
+              preferences.setString("payment_status", data['payment_status']);
           // =====
-          // Get.offAll(MainFragment()); 
+          // Get.offAll(MainFragment());
           Get.snackbar("Ubutumwa", "Kwinjira byagenze neza!",
               snackPosition: SnackPosition.TOP,
               backgroundColor: Colors.green,
               colorText: Colors.white);
-
-          Get.offAll(()=> UserHome());
+          Get.back();
+          Get.offAll(() => UserHome());
           // =====
+        } else if (status == "success" &&
+            message == "Login successful" &&
+            payment_status == "not_paid") {
+          //default dialog
+          Get.defaultDialog(
+            title: "Ubutumwa",
+            middleText:
+                " Mukiriya mwiza, ${data['fname']} - ${data['lname']} \n\n"
+                "Mushobora Gukomeza igikorwa cyo gukoresha iyi program aruko mumaze Kwishyura Ifatabuguzi(Plan/Subscription). \n\n"
+                "Emeza gukomeza kugurango Wishyure!",
+            textConfirm: "Komeza",
+            confirmTextColor: Colors.white,
+            onConfirm: () {
+              Get.back();
+              Get.to(Subscription());
+            },
+            buttonColor: Colors.green,
+            barrierDismissible: false,
+          );
         } else if (status == "error" && message == "Password is incorrect") {
+          Get.back();
           Get.snackbar("Ubutumwa", "Ijambo banga Siryo!",
               snackPosition: SnackPosition.TOP);
         } else if (status == "error" &&
             message == "Phone number does not exist") {
-               Get.snackbar("Ubutumwa", "Nimero ya Telephone Siyo!",
+          Get.back();
+          Get.snackbar("Ubutumwa", "Nimero ya Telephone Siyo!",
               snackPosition: SnackPosition.TOP);
         } else {
-           Get.snackbar("Ubutumwa", "System Ifite Ikibazo!",
+          Get.back();
+          Get.snackbar("Ubutumwa", "System Ifite Ikibazo!",
               snackPosition: SnackPosition.TOP);
         }
       } else {
@@ -216,7 +244,8 @@ class _LoginFragmentState extends State<LoginFragment> {
                             child: Text(
                               "Yifungure",
                               style: TextStyle(
-                                  color: Color.fromARGB(255, 43, 44, 143),),
+                                color: Color.fromARGB(255, 43, 44, 143),
+                              ),
                             ),
                           ),
                           // forgot password text
