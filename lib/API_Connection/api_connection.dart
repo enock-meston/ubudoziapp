@@ -1,6 +1,6 @@
 class API {
-  static const hostAdmin = "http://192.168.1.67/ubudoziweb/admn/";
-  static const hostConnect = "http://192.168.1.67/ubudoziweb/android";
+  static const hostAdmin = "http://192.168.1.71/ubudoziweb/admn/";
+  static const hostConnect = "http://192.168.1.71/ubudoziweb/android";
 
   // signup
   static const signup = hostConnect + "/signup.php";
@@ -36,4 +36,7 @@ class API {
   static const verifyOtp = hostConnect + "/verify_otp.php";
   // change password
   static const changePassword = hostConnect + "/change_password.php";
+  // select subscription
+  static const selectSubscription = hostConnect + "/select_SubScriptions.php";
+  
 }

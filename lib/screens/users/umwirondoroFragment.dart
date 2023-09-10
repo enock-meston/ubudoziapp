@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:ubudoziapp/widgets/app_bar.dart';
 import 'dart:convert';
 
 import '../../UserPreferences/user_preferences.dart';
@@ -98,8 +99,8 @@ class UmwirondoroFragment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Umwirondoro"),
+      appBar: CustomAppBar(
+        title:  "Umwirondoro",
         actions: [
           IconButton(
             onPressed: () {
@@ -139,6 +140,8 @@ class UmwirondoroFragment extends StatelessWidget {
                     const SizedBox(height: 10),
                     userInfoItemProfile(Icons.person,
                         _userProfileControler.userProfileModel.lname ?? ""),
+                        const SizedBox(height: 10),
+                    userInfoItemProfile(Icons.person_2, "${_userProfileControler.userProfileModel.fname?? ""}"),
                     const SizedBox(height: 10),
                     userInfoItemProfile(
                         Icons.phone,

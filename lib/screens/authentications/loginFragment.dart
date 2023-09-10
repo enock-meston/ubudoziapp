@@ -60,6 +60,9 @@ class _LoginFragmentState extends State<LoginFragment> {
           var user_id = preferences.setString("userId", data['id']);
           var payment_status =
               preferences.setString("payment_status", data['payment_status']);
+              var fname = preferences.setString("fname", data['fname']);
+              var lname = preferences.setString("lname", data['lname']);
+              var phone = preferences.setString("phone", data['phoneNumber']);
           // =====
           // Get.offAll(MainFragment());
           Get.snackbar("Ubutumwa", "Kwinjira byagenze neza!",

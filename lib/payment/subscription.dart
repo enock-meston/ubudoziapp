@@ -1,80 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
+import 'package:ubudoziapp/payment/pay_subscription.dart';
+import 'package:ubudoziapp/widgets/app_bar.dart';
 
-class Subscription  extends StatefulWidget {
-   Subscription ({super.key});
+import '../controller/subscription_controller.dart';
 
-  @override
-  State<Subscription> createState() => _SubscriptionState();
-}
-
-class _SubscriptionState extends State<Subscription> {
-String selectedPlan = '';
-
-  List<Map<String, dynamic>> subscriptionPlans = [
-    {
-      'title': 'Basic Plan',
-      'price': '600 Rwf/month',
-    },
-    {
-      'title': 'Premium Plan',
-      'price': '1150 Rwf/ 2 months',
-    },
-    {
-      'title': 'Ultimate Plan',
-      'price': '2000 Rwf / 3 months',
-    },
-  ];
-
-  Widget buildSubscriptionCard(Map<String, dynamic> plan) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedPlan = plan['title'];
-        });
-      },
-      child: Card(
-        color: selectedPlan == plan['title'] ? Colors.blue : null,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                plan['title'],
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 8),
-              Text(
-                plan['price'],
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
-              ),
-             
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+class Subscription extends StatelessWidget {
+  Subscription({super.key});
+  SubScriptionController subScriptionController =
+      Get.put(SubScriptionController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Subscription Plans'),
+      appBar: const CustomAppBar(
+        title: "Subscription",
       ),
-      body: ListView.builder(
-        itemCount: subscriptionPlans.length,
-        itemBuilder: (context, index) {
-          return buildSubscriptionCard(subscriptionPlans[index]);
-        },
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FutureBuilder<void>(
+            future: subScriptionController.getSubscription(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              } else {
+                return ListView.builder(
+                  itemCount: subScriptionController.subscriptionDataList.length,
+                  itemBuilder: (context, index) {
+                    var subscription =
+                        subScriptionController.subscriptionDataList[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(() => PaySubscription(
+                          PayData: subscription));
+                      },
+                      child: Card(
+                        color: Colors.indigo[50],
+                        child: ListTile(
+                          title: Text(subscription.title ?? ""),
+                          subtitle: Text("${subscription.amount} RWF"),
+                          trailing:
+                              Text("Per ${subscription.duration ?? ""} Months"),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }
+            },
+          ),
+        ),
       ),
     );
   }
