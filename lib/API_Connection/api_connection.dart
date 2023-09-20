@@ -1,6 +1,10 @@
 class API {
-  static const hostAdmin = "http://192.168.1.67/ubudoziweb/admn/";
-  static const hostConnect = "http://192.168.1.67/ubudoziweb/android";
+
+  static const hostAdmin = "https://ubudozi.nigoote.com/admn/";
+  static const hostConnect = "https://ubudozi.nigoote.com/android";
+
+  // static const hostAdmin = "http://192.168.1.67/ubudoziweb/admn/";
+  // static const hostConnect = "http://192.168.1.67/ubudoziweb/android";
 
   // signup
   static const signup = hostConnect + "/signup.php";
@@ -20,7 +24,6 @@ class API {
   static const getHasiData = hostConnect + "/selectHasi.php";
   //delete hejuru data
   static const deleteHejuruData = hostConnect + "/deleteHejuru.php";
-
   // update data yo hejuru
   static const updateHejuruDataStatus = hostConnect + "/updateHejuruStatus.php";
   //delete hasi data
@@ -38,5 +41,8 @@ class API {
   static const changePassword = hostConnect + "/change_password.php";
   // select subscription
   static const selectSubscription = hostConnect + "/select_SubScriptions.php";
+
+  // save saveTransaction
+  static const saveTransaction = hostConnect + "/saveTransaction.php";
   
 }

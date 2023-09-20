@@ -109,7 +109,7 @@ Future<void> getHejuruData() async {
   };
 
   var url = Uri.parse("https://www.intouchsms.co.rw/api/sendsms/.json");
-  var username = "enock-meston";
+  var username = "nigoote.ltd";
   var password = "Enock@123";
 
   var response = await http.post(url,

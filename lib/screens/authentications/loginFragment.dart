@@ -60,9 +60,9 @@ class _LoginFragmentState extends State<LoginFragment> {
           var user_id = preferences.setString("userId", data['id']);
           var payment_status =
               preferences.setString("payment_status", data['payment_status']);
-              var fname = preferences.setString("fname", data['fname']);
-              var lname = preferences.setString("lname", data['lname']);
-              var phone = preferences.setString("phone", data['phoneNumber']);
+          var fname = preferences.setString("fname", data['fname']);
+          var lname = preferences.setString("lname", data['lname']);
+          var phone = preferences.setString("phone", data['phoneNumber']);
           // =====
           // Get.offAll(MainFragment());
           Get.snackbar("Ubutumwa", "Kwinjira byagenze neza!",
@@ -75,6 +75,12 @@ class _LoginFragmentState extends State<LoginFragment> {
         } else if (status == "success" &&
             message == "Login successful" &&
             payment_status == "not_paid") {
+          var user_id = preferences.setString("userId", data['id']);
+          var payment_status =
+              preferences.setString("payment_status", data['payment_status']);
+          var fname = preferences.setString("fname", data['fname']);
+          var lname = preferences.setString("lname", data['lname']);
+          var phone = preferences.setString("phone", data['phoneNumber']);
           //default dialog
           Get.defaultDialog(
             title: "Ubutumwa",
@@ -100,6 +106,32 @@ class _LoginFragmentState extends State<LoginFragment> {
           Get.back();
           Get.snackbar("Ubutumwa", "Nimero ya Telephone Siyo!",
               snackPosition: SnackPosition.TOP);
+        } else if (status == "success" &&
+            message == "Login successful" &&
+            payment_status == "expired") {
+          var user_id = preferences.setString("userId", data['id']);
+          var payment_status =
+              preferences.setString("payment_status", data['payment_status']);
+          var fname = preferences.setString("fname", data['fname']);
+          var lname = preferences.setString("lname", data['lname']);
+          var phone = preferences.setString("phone", data['phoneNumber']);
+          //default dialog
+          Get.defaultDialog(
+            title: "Ubutumwa",
+            middleText:
+                " Mukiriya mwiza, ${data['fname']} - ${data['lname']} \n\n"
+                "Ifatabuguzi ryawe Ryararangiye ,Mushobora Gukomeza igikorwa cyo gukoresha iyi program aruko "
+                "mumaze Kwishyura Ifatabuguzi(Plan/Subscription). \n\n"
+                "Emeza gukomeza kugurango Wishyure!",
+            textConfirm: "Komeza",
+            confirmTextColor: Colors.white,
+            onConfirm: () {
+              Get.back();
+              Get.to(Subscription());
+            },
+            buttonColor: Colors.green,
+            barrierDismissible: false,
+          );
         } else {
           Get.back();
           Get.snackbar("Ubutumwa", "System Ifite Ikibazo!",

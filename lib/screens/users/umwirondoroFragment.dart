@@ -111,6 +111,43 @@ class UmwirondoroFragment extends StatelessWidget {
               color: Color.fromARGB(255, 43, 44, 143),
             ),
           ),
+          //help icon
+          IconButton(
+            onPressed: () {
+              Get.dialog(
+                AlertDialog(
+                  backgroundColor: Colors.grey,
+                  title: const Text(
+                    "Ubufasha",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  content: const Text(
+                    "Contact us on:\n+250 783 982 872\n+250 723 993 376",
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: const Text(
+                        "OK",
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.help,
+              color: Color.fromARGB(255, 43, 44, 143),
+            ),
+          ),
         ],
       ),
       body: FutureBuilder(
