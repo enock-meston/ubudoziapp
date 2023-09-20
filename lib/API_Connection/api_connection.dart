@@ -1,6 +1,6 @@
 class API {
-  static const hostAdmin = "http://192.168.1.71/ubudoziweb/admn/";
-  static const hostConnect = "http://192.168.1.71/ubudoziweb/android";
+  static const hostAdmin = "http://192.168.1.67/ubudoziweb/admn/";
+  static const hostConnect = "http://192.168.1.67/ubudoziweb/android";
 
   // signup
   static const signup = hostConnect + "/signup.php";
