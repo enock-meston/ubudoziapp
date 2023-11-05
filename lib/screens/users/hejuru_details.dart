@@ -12,16 +12,16 @@ class HejuruDataDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: hejuruData.clientNames ?? "",
-        // back icon
-        actions:[ IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-        ),
-        ]
-      ),
+          title: hejuruData.clientNames ?? "",
+          // back icon
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.arrow_back, color: Colors.black),
+            ),
+          ]),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -205,6 +205,33 @@ class HejuruDataDetail extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              // edit icon
+              Container(
+                padding: const EdgeInsets.only(left: 8),
+                child: ElevatedButton(
+                  onPressed: () {
+                    // get data id
+                    String dataId = "${hejuruData.id}";
+                    // call function to update data
+                    // hasiController.updateHasiData(dataId);
+                    hejuruController.updateHejuruData(dataId);
+                  },
+                  child: const Text(
+                    "Hindura Ibipimo",
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

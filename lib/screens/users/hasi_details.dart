@@ -320,7 +320,35 @@ class HasiDataDetails extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+                                // edit
                               ),
+                              // edit icon
+                              Container(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    // get data id
+                                    String dataId = "${hasiData.id}";
+                                    // call function to update data
+                                    // hasiController.updateHasiData(dataId);
+                                  },
+                                  child: const Text(
+                                    "Hindura",
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.green,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
                             ],
                           ),
                           // row ya kabiri

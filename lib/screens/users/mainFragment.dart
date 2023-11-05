@@ -10,13 +10,14 @@ import 'package:ubudoziapp/screens/users/umwirondoroFragment.dart';
 import '../../controller/hasi_controller.dart';
 import '../../controller/hejuru_controller.dart';
 import '../../controller/user_profile_controler.dart';
+import 'main2Fragment.dart';
 
 class UserHome extends StatefulWidget {
   final UserProfileControler userProfileControler =
       Get.put(UserProfileControler());
-  HejuruController hejuruController = Get.put(HejuruController());  
+  HejuruController hejuruController = Get.put(HejuruController());
   HasiController hasiController = Get.put(HasiController());
- 
+
   @override
   State<UserHome> createState() => _UserHomeState();
 }
@@ -25,10 +26,7 @@ class _UserHomeState extends State<UserHome> {
   int currentIndex = 0;
 
   final screens = [
-    HejuruFragment(),
-    HasiFragment(),
-    IbyakozweHejuruFragment(),
-    IbyakozweHasiFragment(),
+    Main2Fragment(),
     UmwirondoroFragment(),
   ];
 
@@ -66,21 +64,13 @@ class _UserHomeState extends State<UserHome> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.upcoming),
-            label: "Hejuru",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.downhill_skiing),
-            label: "Hasi",
-            backgroundColor: Colors.amber,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.update),
-            label: "Ibyohejuru",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.update),
-            label: "IbyoHasi",
+            icon: Image.asset(
+              'assets/sewing.png', // Replace with your image asset path
+              width: 30.0,
+              height: 30.0,
+              color: const Color.fromARGB(255, 158, 155, 155),
+            ),
+            label: "Home",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

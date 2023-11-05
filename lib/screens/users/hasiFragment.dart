@@ -138,7 +138,7 @@ class HasiFragment extends StatelessWidget {
               "Kwandika Umwenda Wo Hasi \n",
             ),
             const Text(
-              "IPANTARO / IJIPO",
+              "IPANTARO/IKABUTURA",
               style: TextStyle(fontSize: 20.0),
             ),
 

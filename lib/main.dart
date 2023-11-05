@@ -6,6 +6,7 @@ import 'package:ubudoziapp/screens/splash.dart';
 import 'package:ubudoziapp/screens/users/mainFragment.dart';
 
 import 'UserPreferences/user_preferences.dart';
+import 'screens/users/main2Fragment.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +51,8 @@ Future<void> _checkUserLoggedIn() async {
 
   if (userId != null && userId.isNotEmpty) {
     print("my id is: $userId");
-    Get.off(() => UserHome());
+    Get.off(() => Main2Fragment());
+    // Get.off(() => UserHome());
   } else {
     print("my id is null");
     Get.off(() => LoginFragment());
